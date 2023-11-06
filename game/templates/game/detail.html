@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div>
+    <div style="text-align:center; max-width: 700px; margin: 4rem auto;">
+        <h1>{{target_game.title }}</h1>
+        <div>
+            {% if user.is_authenticated and user == target_game.author %}
+                <a class="btn btn-info float-right "href="{% url 'game:update' pk=target_game.pk %}" role="button">
+                        <i class="fas fa-pen"> Edit Game</i>
+                </a>
+            {% endif %}
+            {% if user.is_authenticated and user == target_game.author %}
+            <a class="btn btn-info float-right "href="{% url 'game:delete'  pk=target_game.pk %}" role="button">
+                    <i class="fas fa-pen">Delete Game</i>
+            </a>
+        {% endif %}
+        </div>
+
+        <hr>
+
+        <img style="width:100%; border-radius=1rem; margin:2rem 0;"
+             src="{{target_game.image.url }}" alt="">
+
+        <p>{{target_game.preparation}}</p>
+        <p>{{target_game.explanation}}</p>
+        <p>{{target_game.tip}}</p>
+
+        <p>{% for t in type %}
+            {{t}},
+        {% endfor %}</p>
+
+
+        <p>{{ target_game.requiredTime.all|join:", "}}</p>
+
+
+        <hr>
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

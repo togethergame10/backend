@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <select id="sort-select" onchange="location = this.value; " style="margin:0 1rem;">
+      <option class="sort-date" value="/">최신순</option>
+      <option class="sort-likes" value="?sort=likes">좋아요순</option>
+      {% if user.is_authenticated %}
+      <option class="sort-mypost" value="?sort=mypost">내가쓴글</option>
+      {% endif %}
+    </select>
+
+
+    {% if game_list %}
+    <div class="container" >
+      {% for game in game_list %}
+      <a href="{% url 'game:detail' pk=game.pk %}">
+        <div style="text-align:center; border: 1px solid; margin: 1rem; color:black;">
+            <h3>{{game.title}}</h3><br>
+            {{game.place}}
+            / {{game.minHeadcount}}
+            / {{game.maxHeadcount}}
+            / {{game.gameType.all | join:", "}}
+            / {{game.situation}}
+            / {{ game.requiredTime.all|join:", "}}
+            /
+            {% if game.gameType.exists %} <!-- 값 여러 개 존재 => .exists()로 검사 -->
+                {% for time in game.gameType.iterator %}
+                    {{time}}
+                {% endfor %}
+            {% endif %}
+
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="text-center">
+      <h1>Nothing...</h1>
+    </div>
+    {% endif %}
+
+  </div>
+
+
+
+
+{% endblock %}
