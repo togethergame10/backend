@@ -19,20 +19,22 @@
 
         <hr>
 
+        {% if target_game.image %}  <!-- 디폴트 이미지 보이게 수정 필요 -->
         <img style="width:100%; border-radius=1rem; margin:2rem 0;"
              src="{{target_game.image.url }}" alt="">
+        {% endif %}
 
-        <p>{{target_game.preparation}}</p>
-        <p>{{target_game.explanation}}</p>
-        <p>{{target_game.tip}}</p>
+        <p>준비: {{target_game.preparation}}</p>
+        <p>방법: {{target_game.explanation}}</p>
+        <p>팁: {{target_game.tip}}</p>
 
-        <p>{% for t in type %}
-            {{t}},
-        {% endfor %}</p>
-
-
-        <p>{{ target_game.requiredTime.all|join:", "}}</p>
-
+        <p>
+            {{target_game.place}}
+            / {{target_game.min_time}}분 ~ {{target_game.max_time}}분
+            / {{target_game.min_num_ppl}}명 ~ {{target_game.max_num_ppl}}명
+            / {{target_game.game_type.all | join:", "}}
+            / {{target_game.situation}}
+        </p>
 
         <hr>
 

@@ -11,21 +11,13 @@
             <form action="{% url 'game:create' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <label for="id_requiredTime">소요시간:</label></th>
-                    <input id="id_requiredTime" type="text" name="requiredTime_str" class="textinput textInput form-control"></td>
                 <label for="id_situation">상황:</label></th>
                     <input id="id_situation" type="text" name="situation_str" class="textinput textInput form-control"></td>
                 <label for="id_place">장소:</label></th>
-                    <input id="id_place" type="text" name="places_str" class="textinput textInput form-control"></td>
-                <label for="id_gameType">유형:</label></th>
-                    <input id="id_gameType" type="text" name="gameType_str" class="textinput textInput form-control"></td>
+                    <input id="id_place" type="text" name="place_str" class="textinput textInput form-control"></td>
+                <label for="id_game_type">유형:</label></th>
+                    <input id="id_game_type" type="text" name="game_type_str" class="textinput textInput form-control"></td>
 
-                <div>
-                    <p>소요시간: 10분 이하;20분;30분 이상;</p>
-                    <p>장소: 계곡;바다;야외;실내;</p>
-                    <p>상황: 소모임;술게임;단체게임;</p>
-                    <p>유형: 순발력;활동;두뇌게임;퀴즈;</p>
-                </div>
                 <input type="submit" class="btn btn-primary">
             </form>
 

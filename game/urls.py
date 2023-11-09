@@ -1,6 +1,8 @@
 from django.urls import path
 
-from game.views import GameCreateView, GameUpdateView, GameDetailView, GameDeleteView, GameListView
+from game.views import GameCreateView, GameUpdateView, GameDetailView, GameDeleteView, GameListView, GameSearchView
+
+from game.views import GameSearchFilter
 
 app_name='game'
 
@@ -11,8 +13,8 @@ urlpatterns = [
     path('delete/<int:pk>/', GameDeleteView.as_view(), name='delete'),
 
     path('list/', GameListView.as_view(), name='list'),
-    #path('search/', GameSearchByTag.as_view(), name='searchByTag'),
-    #path('search/<str:q>/', GameSearchView.as_view(), name='search'),
-    #path('like/', add_like, name='like')\
+    path('search/', GameSearchFilter.as_view(), name='search_filter'),
+    path('search/<str:q>/', GameSearchView.as_view(), name='search'),
+    #path('like/', update_like, name='like')\
 
 ]

@@ -2,44 +2,53 @@
 {% load static %}
 
 {% block content %}
-    <select id="sort-select" onchange="location = this.value; " style="margin:0 1rem;">
-      <option class="sort-date" value="/">최신순</option>
-      <option class="sort-likes" value="?sort=likes">좋아요순</option>
-      {% if user.is_authenticated %}
-      <option class="sort-mypost" value="?sort=mypost">내가쓴글</option>
-      {% endif %}
-    </select>
-
-
-    {% if game_list %}
     <div class="container" >
-      {% for game in game_list %}
-      <a href="{% url 'game:detail' pk=game.pk %}">
-        <div style="text-align:center; border: 1px solid; margin: 1rem; color:black;">
-            <h3>{{game.title}}</h3><br>
-            {{game.place}}
-            / {{game.minHeadcount}}
-            / {{game.maxHeadcount}}
-            / {{game.gameType.all | join:", "}}
-            / {{game.situation}}
-            / {{ game.requiredTime.all|join:", "}}
-            /
-            {% if game.gameType.exists %} <!-- 값 여러 개 존재 => .exists()로 검사 -->
-                {% for time in game.gameType.iterator %}
-                    {{time}}
-                {% endfor %}
-            {% endif %}
 
-        </div>
-      </a>
-      {% endfor %}
+        <!-- 필터 검색 -->
+        <form action="{% url 'game:search_filter' %}" method="get">
+            {% csrf_token %}
+            <input id="place-input" class="form-control" type="text"  name="place_str"
+               {% if place %} value="{{place}}" {% endif %}
+           placeholder="장소" aria-label="Enter search term..." aria-describedby="button-search" />
+            <input id="gameType-input" class="form-control" type="text"  name="game_type_str"
+                   {% if game_type %} value="{{game_type}}" {% endif %}
+                   placeholder="유형" aria-label="Enter search term..." aria-describedby="button-search" />
+            <input id="situation-input" class="form-control" type="text" name="situation_str"
+                   {% if situation %} value="{{situation}}" {% endif %}
+                   placeholder="상황" aria-label="Enter search term..." aria-describedby="button-search" />
+            <input type="submit" class="btn btn-primary">
+            <select id="sort-select" style="margin:0 1rem;" name="sort">
+              <option class="sort-date" value="recent" selected>최신순</option>
+              <option class="sort-likes" value="like">인기순</option>
+            </select>
+        </form>
+        {%if sort %}
+            <p>{{ sort }}</p>
+        {% endif %}
+
+        <!-- 게임 목록 -->
+        {% if game_list %}
+            {% for game in game_list %}
+              <a href="{% url 'game:detail' pk=game.pk %}">
+                <div style="text-align:center; border: 1px solid; margin: 1rem; color:black;">
+                    <h3>{{game.title}}</h3><br>
+                    {{game.place}}
+                    / {{game.min_time}}분 ~ {{game.max_time}}분
+                    / {{game.min_num_ppl}}명 ~ {{game.max_num_ppl}}명
+                    / {{game.game_type.all | join:", "}}
+                    / {{game.situation}}
+                </div>
+              </a>
+            {% endfor %}
+        {% else %}
+            <div class="text-center">
+              <h1>Nothing...</h1>
+            </div>
+        {% endif %}
+
     </div>
 
-    {% else %}
-    <div class="text-center">
-      <h1>Nothing...</h1>
-    </div>
-    {% endif %}
+
 
   </div>
 

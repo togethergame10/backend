@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 
 # Create your views here.
@@ -5,9 +6,10 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 
 from game.forms import GameCreationForm
-from game.models import Game, Place, Situation, RequiredTime, GameType
+from game.models import Game, Place, Situation, GameType
 
 
+# 게임 등록
 class GameCreateView(CreateView):
     model = Game
     context_object_name = 'target_game'
@@ -17,71 +19,55 @@ class GameCreateView(CreateView):
     def form_valid(self, form):
         temp_game = form.save(commit=False)
         temp_game.author = self.request.user
-        temp_game.place = Place.objects.get(name=self.request.POST['places_str'])
+        temp_game.place = Place.objects.get(name=self.request.POST['place_str'])
         temp_game.situation = Situation.objects.get(name=self.request.POST['situation_str'])
         temp_game.save()
-        # 태그들 처리
-        arr = [0, 0]
-        arr[0] = self.request.POST.get('requiredTime_str')
-        arr[1] = self.request.POST.get('gameType_str')
-        for i in range(len(arr)):
-            if arr[i]:
-                tag_list = arr[i].strip().replace(',', ';').split(';')
-                for t in tag_list:
-                    t = t.strip()
-                    if t == '':
-                        continue
-                    if i == 0:
-                        tag = RequiredTime.objects.get(name=t)
-                        temp_game.requiredTime.add(tag)
-                    elif i == 1:
-                        tag = GameType.objects.get(name=t)
-                        temp_game.gameType.add(tag)
+        game_type = self.request.POST.get('game_type_str')
+        if game_type:
+            tag_list = game_type.strip().replace(',', ';').split(';')
+            for t in tag_list:
+                t = t.strip()
+                if t == '':
+                    continue
+                tag = GameType.objects.get(name=t)
+                temp_game.game_type.add(tag)
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('game:detail', kwargs={'pk':self.object.pk})
 
-
+# 게임 수정
 class GameUpdateView(UpdateView):
     model = Game
     context_object_name = 'target_game'
     form_class = GameCreationForm
     template_name = 'game/update.html'
-    # 수정 폼에 기존 태그들 볼 수 있게 해놔야....
+
+    def form_valid(self, form):
+        response = super(GameUpdateView, self).form_valid(form)
+        self.object.game_type.clear()
+        game_type = self.request.POST.get('game_type_str')
+        if game_type:
+            tag_list = game_type.strip().replace(',', ';').split(';')
+            for t in tag_list:
+                t = t.strip()
+                if t == '':
+                    continue
+                tag = GameType.objects.get(name=t)
+                self.object.game_type.add(tag)
+        return response
 
     def get_success_url(self):
         return reverse('game:detail', kwargs={'pk': self.object.pk})
 
-    def form_valid(self, form):
-        response = super(GameUpdateView, self).form_valid(form)
-        self.object.requiredTime.clear()
-        self.object.gameType.clear()
-        # 태그들 처리
-        arr = [0, 0]
-        arr[0] = self.request.POST.get('requiredTime_str')
-        arr[1] = self.request.POST.get('gameType_str')
-        for i in range(len(arr)):
-            if arr[i]:
-                tag_list = arr[i].strip().replace(',', ';').split(';')
-                for t in tag_list:
-                    t = t.strip()
-                    if t == '':
-                        continue
-                    if i == 0:
-                        tag = RequiredTime.objects.get(name=t)
-                        self.object.requiredTime.add(tag)
-                    elif i == 1:
-                        tag = GameType.objects.get(name=t)
-                        self.object.gameType.add(tag)
-        return response
-
+# 게임 삭제
 class GameDeleteView(DeleteView):
     model = Game
     context_object_name = 'target_game'
     success_url = reverse_lazy('game:list')
     template_name = 'game/delete.html'
 
+# 게임 목록
 class GameListView(ListView):
     model = Game
     context_object_name = 'game_list'
@@ -89,6 +75,55 @@ class GameListView(ListView):
     paginate_by = 10
     ordering = '-pk'
 
+# 게임 제목 검색
+class GameSearchView(GameListView):
+    paginate_by = None
+    def get_queryset(self):
+        q = self.kwargs['q']
+        game_list = Game.objects.filter(Q(title__contains=q))#.order_by('-pk')
+        game_list = game_list.order_by('-pk')
+        return game_list
+
+# 게임 필터 검색
+class GameSearchFilter(GameListView):
+    paginate_by = None
+    def get_queryset(self):
+        game_list = None
+        q = Q()
+
+        situation = self.request.GET.get('situation_str', False)
+        if situation:
+            q &= Q(situation_id=Situation.objects.get(name=situation).pk)
+
+        place = self.request.GET.get('place_str', False)
+        if place:
+            q &= Q(place_id=Place.objects.get(name=place).pk)
+
+        game_type = self.request.GET.get('game_type_str', False)
+        if game_type:
+            game_type = game_type.split(';')
+            if '' in game_type:
+                game_type.remove('')
+            for i in range(len(game_type)):
+               game_type[i] = GameType.objects.get(name=game_type[i])
+            q &= Q(game_type__in=game_type)
+
+        sort = self.request.GET.get('sort')
+        if sort=="recent":
+            game_list = Game.objects.filter(q).distinct().order_by('-pk')
+        elif sort=="like":
+            game_list = Game.objects.filter(q).distinct().order_by('pk') #좋아요 기능 추가 후 수정 예정
+        return game_list
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(GameSearchFilter, self).get_context_data()
+        context['place'] = self.request.GET.get('place_str', False)
+        context['situation'] = self.request.GET.get('situation_str', False)
+        context['game_type'] = self.request.GET.get('game_type_str', False)
+        context['sort'] = self.request.GET.get('sort', False)
+        return context
+
+# 게임 상세
 class GameDetailView(DetailView):
     model = Game
     context_object_name = 'target_game'
