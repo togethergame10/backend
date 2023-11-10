@@ -1,0 +1,46 @@
+
+
+<!-- 좋아요 기능 -->
+            <button id="like-button" data-game-id="{{ target_game.pk }}" data-liked="{{ user_likes_game }}">
+                {% if is_like %}
+                취소
+                {% else %}
+                좋아요
+                {% endif%}
+            </button>
+            <span id="like-count">{{ target_game.likes.count }}</span>  <!-- 로그인X 유저 처리 필요 -->
+
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script>
+            $(document).ready(function() {
+              $("#like-button").on("click", function() {
+                var game_id = $(this).data("game-id");
+                var liked = $(this).data("liked");
+
+                $.ajax({
+                  type: "POST",
+                  url: "{% url 'game:like' %}",
+                  data: {
+                    'game_id': game_id,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                  },
+                  success: function(response) {
+                    if (response.success) {
+                      if (response.liked) {
+                        $("#like-button").text("취소");
+                      } else {
+                        $("#like-button").text("좋아요");
+                      }
+                      $("#like-count").text(response.like_count);
+                      $("#like-button").data("liked", !liked);
+                    } else {
+                      alert(response.error);
+                    }
+                  },
+                  error: function() {
+                    alert("오류가 발생했습니다.");
+                  }
+                });
+              });
+            });
+          </script>

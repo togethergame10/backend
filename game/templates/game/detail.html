@@ -15,6 +15,12 @@
                     <i class="fas fa-pen">Delete Game</i>
             </a>
         {% endif %}
+
+            <!-- 좋아요 기능 -->
+            <div style="margin:10px">
+                {% include 'game/like.html' with target_game=target_game is_like=is_like %}
+            </div>
+
         </div>
 
         <hr>
