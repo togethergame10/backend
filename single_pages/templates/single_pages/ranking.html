@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container" >
+      <h3>{{ title }}</h3>
+      {% if liked_ranking %}
+        {% for game in liked_ranking %}
+        <a href="{% url 'game:detail' pk=game.pk %}">
+          {{game.title}} - {{game.author }}
+        </a><br>
+        {% endfor %}
+      {% endif %}
+
+      {% if situation_ranking %}
+        <h5>{{ situation }}</h5>
+        {% for game in situation_ranking %}
+        <a href="{% url 'game:detail' pk=game.pk %}">
+          {{game.title}} - {{game.author }}
+        </a><br>
+        {% endfor %}
+      {% endif %}
+
+    </div>
+
+
+
+
+  </div>
+
+
+
+
+{% endblock %}

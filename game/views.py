@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -45,8 +45,11 @@ class GameUpdateView(UpdateView):
     template_name = 'game/update.html'
 
     def form_valid(self, form):
-        response = super(GameUpdateView, self).form_valid(form)
-        self.object.game_type.clear()
+        temp_game = form.save(commit=False)
+        temp_game.place = Place.objects.get(name=self.request.POST['place_str'])
+        temp_game.situation = Situation.objects.get(name=self.request.POST['situation_str'])
+        temp_game.save()
+        temp_game.game_type.clear()
         game_type = self.request.POST.get('game_type_str')
         if game_type:
             tag_list = game_type.strip().replace(',', ';').split(';')
@@ -55,8 +58,8 @@ class GameUpdateView(UpdateView):
                 if t == '':
                     continue
                 tag = GameType.objects.get(name=t)
-                self.object.game_type.add(tag)
-        return response
+                temp_game.game_type.add(tag)
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('game:detail', kwargs={'pk': self.object.pk})
@@ -113,7 +116,7 @@ class GameSearchFilter(GameListView):
         if sort=="recent":
             game_list = Game.objects.filter(q).distinct().order_by('-pk')
         elif sort=="like":
-            game_list = Game.objects.filter(q).distinct().order_by('pk') #좋아요 기능 추가 후 수정 예정
+            game_list = Game.objects.filter(q).distinct().annotate(like_count=Count('likes')).order_by('-like_count')
         return game_list
 
     def get_context_data(self, *, object_list=None, **kwargs):

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'game',
     'account',
+    'single_pages',
 
     'django_bootstrap5',
 ]

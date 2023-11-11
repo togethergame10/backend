@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container" >
+        <h3>인기 게임</h3>
+        <a class="btn btn-info float-right "href="{% url 'page:likedRanking' %}" role="button">
+                        <i class="fas fa-pen"> 더 보기</i></a><br>
+      {% for game in liked_ranking %}
+          <a href="{% url 'game:detail' pk=game.pk %}">
+              {{game.title}} - {{game.author }}
+          </a>
+          <br>
+      {% endfor %}
+
+        <hr>
+
+
+      <h3>상황별 </h3>
+        <div>
+          <p>술게임</p>
+          <a class="btn btn-info float-right "href="{% url 'page:situationRanking' pk=0 %}" role="button">
+            <i class="fas fa-pen"> 더 보기</i></a><br>
+          {% for game in situation_ranking1 %}
+            <a href="{% url 'game:detail' pk=game.pk %}">
+              {{game.title}} - {{game.author }}
+            </a>
+            <br>
+          {% endfor %}
+        </div>
+
+        <br>
+
+        <div>
+          <p>MT</p>
+          <a class="btn btn-info float-right "href="{% url 'page:situationRanking' pk=1 %}" role="button">
+            <i class="fas fa-pen"> 더 보기</i></a><br>
+          {% for game in situation_ranking2 %}
+            <a href="{% url 'game:detail' pk=game.pk %}">
+              {{game.title}} - {{game.author }}
+            </a>
+            <br>
+          {% endfor %}
+        </div>
+
+    </div>
+
+<!--  </div>-->
+
+
+
+
+{% endblock %}
