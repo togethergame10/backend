@@ -3,33 +3,63 @@
 
 {% block content %}
 
-    <div class="container" >
-      <h3>{{ title }}</h3>
-      {% if liked_ranking %}
-        {% for game in liked_ranking %}
-        <a href="{% url 'game:detail' pk=game.pk %}">
+{% if liked_ranking %}
+<div class="img_wrapper">
+  <p>{{ title }}</p>
+  <ul class="img_list">
+    {% for game in liked_ranking %}
+    <li><a href="{% url 'game:detail' pk=game.pk %}"><img src="../media/img/thumbnail.png"></a>
+      <div>
+        <h2><a href="{% url 'game:detail' pk=game.pk %}">{{game.title}} - {{game.author }}</a></h2>
+        <img src="../media/img/likefull.png" class="like-icon" style="display: none;">
+        <img src="../media/img/like.png" class="like-icon">
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+    {% endif %}
+
+{% if situation_ranking %}
+<div class="img_wrapper">
+  <p>{{ situation }}</p>
+  <ul class="img_list">
+  {% for game in situation_ranking %}
+    <li>
+      <a href="{% url 'game:detail' pk=game.pk %}"><img src="../media/img/thumbnail.png"></a>
+      <div>
+        <h2><a href="{% url 'game:detail' pk=game.pk %}">
           {{game.title}} - {{game.author }}
-        </a><br>
-        {% endfor %}
-      {% endif %}
-
-      {% if situation_ranking %}
-        <h5>{{ situation }}</h5>
-        {% for game in situation_ranking %}
-        <a href="{% url 'game:detail' pk=game.pk %}">
-          {{game.title}} - {{game.author }}
-        </a><br>
-        {% endfor %}
-      {% endif %}
-
-    </div>
+        </a></h2>
+        <img src="../media/img/likefull.png" class="like-icon" style="display: none;">
+        <img src="../media/img/like.png" class="like-icon">
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+  {% endif %}
 
 
+<script>
+  // JavaScript 코드
+document.addEventListener("DOMContentLoaded", function() {
+  const likeIcons = document.querySelectorAll(".like-icon");
 
+  likeIcons.forEach(icon => {
+    icon.addEventListener("click", function() {
+      // 이미지를 토글하여 표시하거나 숨김
+      icon.classList.toggle("active");
 
-  </div>
-
-
-
+      // 토글된 상태에 따라 다른 이미지 표시
+      if (icon.classList.contains("active")) {
+        icon.src = "../media/img/likefull.png";
+      } else {
+        icon.src = "../media/img/like.png";
+      }
+    });
+  });
+});
+</script>
 
 {% endblock %}

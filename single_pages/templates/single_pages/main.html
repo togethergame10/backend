@@ -3,52 +3,55 @@
 
 {% block content %}
 
-    <div class="container" >
-        <h3>인기 게임</h3>
-        <a class="btn btn-info float-right "href="{% url 'page:likedRanking' %}" role="button">
-                        <i class="fas fa-pen"> 더 보기</i></a><br>
-      {% for game in liked_ranking %}
-          <a href="{% url 'game:detail' pk=game.pk %}">
-              {{game.title}} - {{game.author }}
-          </a>
-          <br>
-      {% endfor %}
+    <div class="img_wrapper" >
+        <p>최근 인기</p>
+        <h3><a href="{% url 'page:likedRanking' %}" role="button">최근 인기 게임 > </a></h3>
 
-        <hr>
-
-
-      <h3>상황별 </h3>
-        <div>
-          <p>술게임</p>
-          <a class="btn btn-info float-right "href="{% url 'page:situationRanking' pk=0 %}" role="button">
-            <i class="fas fa-pen"> 더 보기</i></a><br>
-          {% for game in situation_ranking1 %}
-            <a href="{% url 'game:detail' pk=game.pk %}">
-              {{game.title}} - {{game.author }}
-            </a>
-            <br>
-          {% endfor %}
-        </div>
-
-        <br>
-
-        <div>
-          <p>MT</p>
-          <a class="btn btn-info float-right "href="{% url 'page:situationRanking' pk=1 %}" role="button">
-            <i class="fas fa-pen"> 더 보기</i></a><br>
-          {% for game in situation_ranking2 %}
-            <a href="{% url 'game:detail' pk=game.pk %}">
-              {{game.title}} - {{game.author }}
-            </a>
-            <br>
-          {% endfor %}
-        </div>
-
+        <ul class="img_list">
+            {% for game in liked_ranking %}
+            <li>
+                <a href="{% url 'game:detail' pk=game.pk %}"><img src="../media/img/thumbnail.png"></a>
+                <div>
+                    <h2><a href="{% url 'game:detail' pk=game.pk %}">{{game.title}} - {{game.author }}</a></h2>
+                    <img src="../img/likefull.png" class="like-icon" style="display: none;">
+                    <img src="../media/img/like.png" class="like-icon">
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 
-<!--  </div>-->
+<div class="img_wrapper" >
+    <p>상황 별 게임</p>
+    <h3><a href="{% url 'page:situationRanking' pk=0 %}">술자리 게임 > </a></h3>
+    <ul class="img_list">
+        {% for game in situation_ranking1 %}
+        <li>
+            <a href="{% url 'game:detail' pk=game.pk %}"><img src="../media/img/thumbnail.png"></a>
+            <div>
+                <h2><a href="{% url 'game:detail' pk=game.pk %}">{{game.title}} - {{game.author }}</a></h2>
+                <img src="../img/likefull.png" class="like-icon" style="display: none;">
+                <img src="../media/img/like.png" class="like-icon">
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 
-
-
+<div class="img_wrapper" >
+    <h3><a href="{% url 'page:situationRanking' pk=1 %}">MT > </a></h3>
+    <ul class="img_list">
+        {% for game in situation_ranking2 %}
+        <li>
+            <a href="{% url 'game:detail' pk=game.pk %}"><img src="../media/img/thumbnail.png"></a>
+            <div>
+                <h2><a href="{% url 'game:detail' pk=game.pk %}">{{game.title}} - {{game.author }}</a></h2>
+                <img src="../img/likefull.png" class="like-icon" style="display: none;">
+                <img src="../media/img/like.png" class="like-icon">
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock %}
