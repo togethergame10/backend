@@ -20,7 +20,7 @@
                 <span>SignUp</span>
              </a>
              {% else %}
-             <a href="">
+             <a href="{% url 'page:mypage' pk=user.pk%}">
                 <span>MyPage</span>
              </a>
              <a href="{% url 'account:logout' %}?next={% url 'game:list' %}">

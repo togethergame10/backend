@@ -8,10 +8,7 @@
         <a class="btn btn-info float-right "href="{% url 'page:likedRanking' %}" role="button">
                         <i class="fas fa-pen"> 더 보기</i></a><br>
       {% for game in liked_ranking %}
-          <a href="{% url 'game:detail' pk=game.pk %}">
-              {{game.title}} - {{game.author }}
-          </a>
-          <br>
+        {% include 'snippets/game_part.html' with game=game %}
       {% endfor %}
 
         <hr>
@@ -23,10 +20,7 @@
           <a class="btn btn-info float-right "href="{% url 'page:situationRanking' pk=0 %}" role="button">
             <i class="fas fa-pen"> 더 보기</i></a><br>
           {% for game in situation_ranking1 %}
-            <a href="{% url 'game:detail' pk=game.pk %}">
-              {{game.title}} - {{game.author }}
-            </a>
-            <br>
+            {% include 'snippets/game_part.html' with game=game %}
           {% endfor %}
         </div>
 
@@ -37,9 +31,7 @@
           <a class="btn btn-info float-right "href="{% url 'page:situationRanking' pk=1 %}" role="button">
             <i class="fas fa-pen"> 더 보기</i></a><br>
           {% for game in situation_ranking2 %}
-            <a href="{% url 'game:detail' pk=game.pk %}">
-              {{game.title}} - {{game.author }}
-            </a>
+            {% include 'snippets/game_part.html' with game=game %}
             <br>
           {% endfor %}
         </div>
