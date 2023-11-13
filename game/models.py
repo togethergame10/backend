@@ -21,6 +21,7 @@ class GameType(models.Model):
 
 class Game(models.Model):
     title = models.CharField(max_length=30, null=False)
+
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='game')
     created_at = models.DateField(auto_now_add=True)
     #modified_at = models.DateTimeField(auto_now=True)

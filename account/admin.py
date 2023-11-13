@@ -1,20 +1,33 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-# Register your models here.
-from django.contrib.auth.admin import UserAdmin
-
-from account.models import User
+from .forms import UserChangeForm, UserCreationForm
+from .models import User
 
 
-class MyUserAdmin(UserAdmin):
-    model = User
-    # 유저 목록
-    list_display = ['username', 'nickname', 'username', 'email']
+class UserAdmin(BaseUserAdmin):
+    form = UserChangeForm
+    add_form = UserCreationForm
 
-    # 유저 정보 관리 페이지 정보 입력창 추가
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('nickname',)}),
+    list_display = ('email', 'nickname', 'is_admin')
+    list_filter = ('is_admin',)
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        ('Personal info', {'fields': ('nickname',)}),
+        ('Permissions', {'fields': ('is_admin',)}),
     )
 
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'nickname', 'password1', 'password2')}
+         ),
+    )
+    search_fields = ('email',)
+    ordering = ('email',)
+    filter_horizontal = ()
 
-admin.site.register(User, MyUserAdmin)
+
+admin.site.register(User, UserAdmin)
+admin.site.unregister(Group)

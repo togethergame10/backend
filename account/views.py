@@ -1,16 +1,26 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 
-from account.forms import AccountCreateForm
-from account.models import User
+from account.forms import UserCreationForm
 
+def index(request):
+    return render(request, 'index.html')
 
-class AccountCreateView(CreateView):
-    model = User
-    form_class =  AccountCreateForm
-    success_url = reverse_lazy('game:list')
-    template_name = 'account/create.html'
+@csrf_exempt
+def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            email = form.data.get('email')
+            nickname = form.data.get('nickname')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(nickname=nickname, password=raw_password)  # 사용자 인증
+            #login(request, user)  # 로그인
+            return redirect('index')
+    else:
+        form = UserCreationForm()
+    return render(request, 'account/signup.html', {'form': form})
