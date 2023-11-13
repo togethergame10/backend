@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+  <div>
+    <div style="text-align:center; max-width: 700px; margin: 4rem auto;">
+        <h1>{{target_gameplaylist.title }}</h1>
+        <div>
+            {% if user.is_authenticated and user == target_gameplaylist.author %}
+                <a class="btn btn-info float-right "href="{% url 'gameplaylist:delete'  pk=target_gameplaylist.pk %}" role="button">
+                        <i class="fas fa-pen">Delete Game</i>
+                </a>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        {% if target_gameplaylist.image %}
+        <img style="width:100%; border-radius=1rem; margin:2rem 0;"
+             src="{{target_gameplaylist.image.url }}" alt="">
+        {% else %}
+            <img src="{% static 'image/thumbnail.png' %}" alt="">
+        {% endif %}
+
+        <hr>
+
+        <div>
+            {% if games %}
+                {% for game in games %}
+                    {% include 'snippets/game_part.html' with game=game %}
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    </div>
+
+  </div>
+
+{% endblock %}

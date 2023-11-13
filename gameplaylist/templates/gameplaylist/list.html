@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container" >
+
+
+      <a href="{% url 'gameplaylist:create' %}">새로 만들기</a>
+
+        <!-- 게임플리 목록 -->
+        {% if gameplaylist_list %}
+            {% for gameplaylist in gameplaylist_list %}
+              <a href="{% url 'gameplaylist:detail' pk=gameplaylist.pk %}">
+                <div style="text-align:center; border: 1px solid; margin: 1rem; color:black;">
+                    {% if gameplaylist.image %}
+                            <img style="width:100%; border-radius=1rem; margin:2rem 0;"
+                                 src="{{gameplaylist.image.url }}" alt="">
+                        {% else %}
+                            <img src="{% static 'image/thumbnail.png' %}" alt="">
+                    {% endif %}
+                    <h3>{{gameplaylist.title}}</h3><br>
+                </div>
+              </a>
+            {% endfor %}
+        {% else %}
+            <div class="text-center">
+              <h1>Nothing...</h1>
+            </div>
+        {% endif %}
+
+    </div>
+
+  </div>
+
+{% endblock %}

@@ -9,14 +9,7 @@
 
         <ul class="img_list">
             {% for game in liked_ranking %}
-            <li>
-                <a href="{% url 'game:detail' pk=game.pk %}"><img src="{% static 'img/thumbnail.png' %}"></a>
-                <div>
-                    <h2><a href="{% url 'game:detail' pk=game.pk %}">{{game.title}} - {{game.author.nickname }}</a></h2>
-                    <img src="{% static 'img/likefull.png' %}" class="like-icon" style="display: none;">
-                    <img src="{% static 'img/like.png' %}" class="like-icon">
-                </div>
-            </li>
+                {% include 'snippets/game_part.html' with game=game %}
             {% endfor %}
         </ul>
     </div>
@@ -26,14 +19,7 @@
     <h3><a href="{% url 'page:situationRanking' pk=0 %}">술자리 게임 > </a></h3>
     <ul class="img_list">
         {% for game in situation_ranking1 %}
-        <li>
-            <a href="{% url 'game:detail' pk=game.pk %}"><img src="{% static 'img/thumbnail.png' %}"></a>
-            <div>
-                <h2><a href="{% url 'game:detail' pk=game.pk %}">{{game.title}} - {{game.author.nickname }}</a></h2>
-                <img src="{% static 'img/likefull.png' %}" class="like-icon" style="display: none;">
-                <img src="{% static 'img/like.png' %}" class="like-icon">
-            </div>
-        </li>
+            {% include 'snippets/game_part.html' with game=game %}
         {% endfor %}
     </ul>
 </div>
@@ -42,14 +28,7 @@
     <h3><a href="{% url 'page:situationRanking' pk=1 %}">MT > </a></h3>
     <ul class="img_list">
         {% for game in situation_ranking2 %}
-        <li>
-            <a href="{% url 'game:detail' pk=game.pk %}"><img src="{% static 'img/thumbnail.png' %}"></a>
-            <div>
-                <h2><a href="{% url 'game:detail' pk=game.pk %}">{{game.title}} - {{game.author.nickname }}</a></h2>
-                <img src="{% static 'img/likefull.png' %}" class="like-icon" style="display: none;">
-                <img src="{% static 'img/like.png' %}" class="like-icon">
-            </div>
-        </li>
+        {% include 'snippets/game_part.html' with game=game %}
         {% endfor %}
     </ul>
 </div>

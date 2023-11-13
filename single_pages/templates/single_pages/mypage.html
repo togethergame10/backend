@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container" >
+      <p>{{ target_user }}</p>
+
+      <h3>좋아요한 게임</h3>
+      <a href="">더보기</a><br>
+      {% for game in liked_list %}
+        <a href="{% url 'game:detail' pk=game.pk %}">
+          {% include 'snippets/game_part.html' with game=game %}
+        </a>
+      {% endfor %}
+
+      <hr>
+
+      <h3>담은 게임</h3>
+      <a href="{% url 'gameplaylist:list' %}">더보기</a><br>
+      <br><br>
+      {% for gamelist in collected_list %}
+      <a href="{% url 'gameplaylist:detail' pk=gamelist.pk %}">
+        {{ gamelist.title }} <br>
+      </a>
+      {% endfor %}
+
+        <hr>
+
+
+    </div>
+
+  </div>
+
+
+
+
+{% endblock %}
