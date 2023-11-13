@@ -1,9 +1,11 @@
+{% load static %}
 <div class="nav-wrapper">
-    <a href="{% url 'page:main' %}"><img src="../media/img/title.png" alt="타이틀" /></a>
+    <a href="{% url 'page:main' %}"><img src="{% static 'img/title.png' %}" alt="타이틀" /></a>
     <div class="search">
         <input id="search-input" class="form-control" type="text" placeholder="검색어를 입력하세요" aria-label="Enter search term..." aria-describedby="button-search" />
         <button onclick="searchPost()">
-            <img src="../media/img/serch.png" alt="검색" />
+            <img src="{% static 'img/serch.png' %}" alt="검색" />
+
         </button>
     </div>
 </div>
