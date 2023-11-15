@@ -6,7 +6,6 @@
     <div class="img_wrapper" >
         <p>최근 인기</p>
         <h3><a href="{% url 'page:likedRanking' %}" role="button">최근 인기 게임 > </a></h3>
-
         <ul class="img_list">
             {% for game in liked_ranking %}
                 {% include 'snippets/game_part.html' with game=game %}
