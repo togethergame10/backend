@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>{{ target_user.nickname }}님, 안녕하세요!</h2>
+<a href="">내 정보 수정 ></a><br><br>
+
+    <!-- 최근 인기 게임 div -->
+    <div class="img_wrapper" >
+      <!-- 좋아요한 게임 배너 -->
+      <div class="likemore">
+        <img src="{% static 'img/blacklike.png' %}">
+        <p>좋아요한 게임</p>
+        <h4>{{ liked_list | length }}</h4>
+      </div>
+
+      <!-- 게임 div -->
+      <ul class="img_list">
+      {% for game in liked_list %}
+        {% include 'snippets/game_part.html' with game=game %}
+      {% endfor %}
+      </ul>
+    </div>
+
+      <hr>
+
+      <h3>담은 게임</h3>
+      <a href="{% url 'gameplaylist:list' %}">더보기</a><br>
+      <br><br>
+      {% for gamelist in collected_list %}
+      <a href="{% url 'gameplaylist:detail' pk=gamelist.pk %}">
+        {{ gamelist.title }} <br>
+      </a>
+      {% endfor %}
+
+        <hr>
+
+
+
+
+
+{% endblock %}

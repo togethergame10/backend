@@ -1,0 +1,18 @@
+{% load static %}
+        <li>
+            <a href="{% url 'game:detail' pk=game.pk%}">
+                {% if game.image %}
+                <img src="{{ game.image.url }}" width="100px" height="100px" alt="">
+                {% else %}
+                <img src="{% static 'img/thumbnail.png' %}" alt="">
+                {% endif %}
+            </a>
+            <div>
+                <h4><a href="{% url 'game:detail' pk=game.pk%}">{{game.title | truncatechars:45 }}</a></h4>
+                <div>
+                    <img
+                        src="{% static 'img/likefull.png' %}" class="like-icon">
+                    <p id="num"> {{game.likes.count }}</p>
+                </div>
+            </div>
+        </li>

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+  <div>
+    <div style="text-align:center; max-width: 700px; margin: 4rem auto;">
+        <h1>{{target_game.title }}</h1>
+        <div>
+            {% if user.is_authenticated and user == target_game.author %}
+                <a class="btn btn-info float-right "href="{% url 'game:update' pk=target_game.pk %}" role="button">
+                        <i class="fas fa-pen"> Edit Game</i>
+                </a>
+            {% endif %}
+            {% if user.is_authenticated and user == target_game.author %}
+            <a class="btn btn-info float-right "href="{% url 'game:delete'  pk=target_game.pk %}" role="button">
+                    <i class="fas fa-pen">Delete Game</i>
+            </a>
+        {% endif %}
+
+            <!-- 좋아요 기능 -->
+            <div style="margin:10px">
+                {% include 'game/like.html' with user=user %}
+            </div>
+
+            <div style="margin:10px">
+                {% include 'gameplaylist/update.html' with user=user game=target_game gameplaylists=gameplaylists checked_gameplaylists=checked_gameplaylists  %}
+            </div>
+
+        </div>
+
+        <hr>
+
+        {% if target_game.image %}
+        <img style="width:100%; border-radius:1rem; margin:2rem 0;"
+             src="{{target_game.image.url }}" alt="">
+        {% else %}
+            <img src="{% static 'img/thumbnail.png' %}" alt="">
+        {% endif %}
+
+        <p>준비: {{target_game.preparation}}</p>
+        <p>방법: {{target_game.explanation}}</p>
+        <p>팁: {{target_game.tip}}</p>
+
+        <p>
+            {{target_game.place}}
+            / {{target_game.min_time}}분 ~ {{target_game.max_time}}분
+            / {{target_game.min_num_ppl}}명 ~ {{target_game.max_num_ppl}}명
+            / {{target_game.game_type.all | join:", "}}
+            / {{target_game.situation}}
+        </p>
+
+        <hr>
+
+
+    </div>
+
+  </div>
+
+{% endblock %}
