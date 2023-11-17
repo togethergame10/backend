@@ -23,17 +23,8 @@
   <p>{{ situation }}</p>
   <ul class="img_list">
   {% for game in situation_ranking %}
-    <li>
-      <a href="{% url 'game:detail' pk=game.pk %}"><img src="{% static 'img/thumbnail.png' %}"></a>
-      <div>
-        <h2><a href="{% url 'game:detail' pk=game.pk %}">
-          {{game.title}} - {{game.author }}
-        </a></h2>
-        <img src="{% static 'img/likefull.png' %}" class="like-icon" style="display: none;">
-        <img src="{% static 'img/like.png' %}" class="like-icon">
-      </div>
-    </li>
-    {% endfor %}
+    {% include 'snippets/game_part.html' with game=game %}
+  {% endfor %}
   </ul>
 </div>
   {% endif %}

@@ -11,6 +11,9 @@ from game.models import Game, Place, Situation, GameType, Like
 
 
 # 게임 등록
+from gameplaylist.models import GamePlaylist
+
+
 class GameCreateView(CreateView):
     model = Game
     context_object_name = 'target_game'
@@ -139,6 +142,9 @@ class GameDetailView(DetailView):
             game = Game.objects.get(pk=self.object.pk)
             liked_by_user = game.likes.filter(user=self.request.user).exists()
             context['is_like'] = liked_by_user
+
+            context['gameplaylists'] = GamePlaylist.objects.filter(author=self.request.user)
+            context['checked_gameplaylists'] = GamePlaylist.objects.filter(Q(author=self.request.user) & Q(games=game)).distinct()
         else:
             context['is_like'] = False
         return context
@@ -146,22 +152,25 @@ class GameDetailView(DetailView):
 
 # 게임 좋아요 추가/삭제
 def update_like(request):
-    game_pk = request.POST.get('game_id')
-    try:
-        game = Game.objects.get(pk=game_pk)
-    except Game.DoesNotExist:
-        return JsonResponse({'success': False, 'error': 'Post not found'})
+    if not request.user.is_authenticated:
+        return JsonResponse({'success': False, 'error': '로그인을 해주세요.'})
+    else:
+        game_pk = request.POST.get('game_id')
+        try:
+            game = Game.objects.get(pk=game_pk)
+        except Game.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Post not found'})
 
-    user_likes = Like.objects.filter(user=request.user, game=game)
+        user_likes = Like.objects.filter(user=request.user, game=game)
 
-    if user_likes.exists(): # 이미 좋아요를 누른 경우, 좋아요 삭제
-        user_likes.delete()
-        liked = False
-    else:   # 좋아요 추가
-        like = Like.objects.create(user=request.user)
-        liked = True
-        game.likes.add(like)  # 다대다 관계 필드에 사용자 추가
+        if user_likes.exists(): # 이미 좋아요를 누른 경우, 좋아요 삭제
+            user_likes.delete()
+            liked = False
+        else:   # 좋아요 추가
+            like = Like.objects.create(user=request.user)
+            liked = True
+            game.likes.add(like)  # 다대다 관계 필드에 사용자 추가
 
-    like_count = game.likes.count()
+        like_count = game.likes.count()
 
-    return JsonResponse({'success': True, 'liked': liked, 'like_count': like_count})
+        return JsonResponse({'success': True, 'liked': liked, 'like_count': like_count})

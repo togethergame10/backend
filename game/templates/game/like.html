@@ -1,15 +1,14 @@
 
 
 <!-- 좋아요 기능 -->
-            <button id="like-button" data-game-id="{{ target_game.pk }}" data-liked="{{ user_likes_game }}">
+            <button id="like-button" data-game-id="{{ target_game.pk }}" data-liked="{{ is_like }}">
                 {% if is_like %}
                 취소
                 {% else %}
                 좋아요
                 {% endif%}
             </button>
-            <span id="like-count">{{ target_game.likes.count }}</span>  <!-- 로그인X 유저 처리 필요 -->
-
+            <span id="like-count">{{ target_game.likes.count }}</span>
 
           <script>
             $(document).ready(function() {

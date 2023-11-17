@@ -21,7 +21,7 @@
         <img style="width:100%; border-radius=1rem; margin:2rem 0;"
              src="{{target_gameplaylist.image.url }}" alt="">
         {% else %}
-            <img src="{% static 'image/thumbnail.png' %}" alt="">
+            <img src="{% static 'img/thumbnail.png' %}" alt="..">
         {% endif %}
 
         <hr>
@@ -30,6 +30,7 @@
             {% if games %}
                 {% for game in games %}
                     {% include 'snippets/game_part.html' with game=game %}
+                    <a href="{% url 'gameplaylist:remove_game' pk1=target_gameplaylist.pk pk2=game.pk %}" role="button">삭제</a>
                 {% endfor %}
             {% endif %}
         </div>

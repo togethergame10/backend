@@ -18,13 +18,11 @@
                    placeholder="상황" aria-label="Enter search term..." aria-describedby="button-search" />
             <input type="submit" class="btn btn-primary">
             <select id="sort-select" style="margin:0 1rem;" name="sort">
-              <option class="sort-date" value="recent" selected>최신순</option>
-              <option class="sort-likes" value="like">인기순</option>
+              <option class="sort-date" value="recent" {% if sort == "recent" %} selected {% endif %}>최신순</option>
+              <option class="sort-likes" value="like"  {% if sort == "like" %} selected {% endif %} >인기순</option>
             </select>
         </form>
-        {%if sort %}
-            <p>{{ sort }}</p>
-        {% endif %}
+
 
         <!-- 게임 목록 -->
         {% if game_list %}

@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block content %}
     <div class="container" >
 
 
-      <a href="{% url 'gameplaylist:create' %}">새로 만들기</a>
+        {% include 'gameplaylist/create.html' with user=user %}
 
         <!-- 게임플리 목록 -->
         {% if gameplaylist_list %}
@@ -23,7 +24,7 @@
               </a>
             {% endfor %}
         {% else %}
-            <div class="text-center">
+
               <h1>Nothing...</h1>
             </div>
         {% endif %}

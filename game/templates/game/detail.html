@@ -21,18 +21,22 @@
 
             <!-- 좋아요 기능 -->
             <div style="margin:10px">
-                {% include 'game/like.html' with target_game=target_game is_like=is_like %}
+                {% include 'game/like.html' with user=user %}
+            </div>
+
+            <div style="margin:10px">
+                {% include 'gameplaylist/update.html' with user=user game=target_game gameplaylists=gameplaylists checked_gameplaylists=checked_gameplaylists  %}
             </div>
 
         </div>
 
         <hr>
 
-        {% if target_game.image %}  <!-- 디폴트 이미지 보이게 수정 필요 -->
+        {% if target_game.image %}
         <img style="width:100%; border-radius:1rem; margin:2rem 0;"
              src="{{target_game.image.url }}" alt="">
         {% else %}
-            <img src="{% static 'image/thumbnail.png' %}" alt="">
+            <img src="{% static 'img/thumbnail.png' %}" alt="">
         {% endif %}
 
         <p>준비: {{target_game.preparation}}</p>
