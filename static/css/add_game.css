@@ -1,6 +1,6 @@
 @media (hover: hover) {
   html {
-    width: 1440px;
+    width: 80%;
     margin: 0 auto;
   }
 }
@@ -98,7 +98,6 @@ h2 {
   padding: 7% 0 6% 0;
   margin-top: 20px;
   border-radius: 15px;
-  
 }
 
 .sec1 {
@@ -132,12 +131,11 @@ h2 {
   color: black;
 }
 
-
 .sec2 {
   width: 50%;
 }
 
-.sec2 form{
+.sec2 form {
   display: flex;
   flex-direction: column;
   justify-content: right;

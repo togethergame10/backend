@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}?after" />
+{% endblock %}
+
 {% block content %}
 <h2>{{ target_user.nickname }}님, 안녕하세요!</h2>
 <a href="">내 정보 수정 ></a><br><br>
@@ -11,6 +15,7 @@
       <div class="likemore">
         <img src="{% static 'img/blacklike.png' %}">
         <p>좋아요한 게임</p>
+        <a href="">더보기</a><br>
         <h4>{{ liked_list | length }}</h4>
       </div>
 

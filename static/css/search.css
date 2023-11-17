@@ -1,6 +1,6 @@
 @media (hover: hover) {
   html {
-    width: 1440px;
+    width: 80%;
     margin: 0 auto;
   }
 }
@@ -174,7 +174,7 @@ h2 {
   justify-content: center;
 }
 
-.list-info{
+.list-info {
   margin-left: 3%;
   width: 60%;
 }
@@ -190,7 +190,7 @@ h2 {
   width: 20px;
 }
 
-.list-title{
+.list-title {
   display: flex;
   justify-content: space-between;
 }
@@ -214,9 +214,7 @@ h2 {
   height: 4.5vw !important; /* Set your desired height */
 }
 
-
-
-.game-info li p{
+.game-info li p {
   margin: 0;
   font-size: 1.5vw;
 }

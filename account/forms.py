@@ -5,9 +5,12 @@ from .models import User
 
 
 class UserCreationForm(forms.ModelForm):
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password1 = forms.CharField(label='비밀번호', widget=forms.PasswordInput)
     password2 = forms.CharField(
-        label='Password confirmation', widget=forms.PasswordInput)
+        label='비밀번호 확인', widget=forms.PasswordInput)
+    email = forms.CharField(max_length=100, label="이메일")
+    nickname = forms.CharField(max_length=100, label="닉네임")
+
 
     class Meta:
         model = User
@@ -17,7 +20,7 @@ class UserCreationForm(forms.ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
+            raise forms.ValidationError("패스워드가 일치하지 않습니다.")
         return password2
 
     def save(self, commit=True):
