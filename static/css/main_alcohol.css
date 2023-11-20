@@ -84,87 +84,100 @@ nav {
   font-weight: 900;
 }
 
-
-.img_wrapper {
-  padding-left: 7%;
-  padding-right: 7%;
-  width: 86%;
+h2 {
+  margin-bottom: 0;
 }
 
-.img_wrapper p {
+/* ------------------------ */
+
+.container {
+  display: flex;
+  margin:auto;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+}
+
+.sec1 p{
   font-size: x-large;
   margin-bottom: 0%;
   margin-top: 0;
   font-weight: 600;
-}
-
-.img_wrapper h3 {
-  margin-bottom: 0%;
-  margin-top: 0;
-  font-weight: 500;
-}
-
-.img_wrapper h4 {
-  margin-bottom: 0%;
-  margin-top: 0;
-  padding-left: 2px;
   margin: 0;
-  font-weight: 500;
 }
 
-.img_list {
-  list-style-type: none;
+.sec2 ul {
+  padding: 0;
+}
+
+.sec2 ul li {
   display: flex;
-  padding: 0%;
-  margin-top: 7px;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-between;
+  margin: 1.5%;
+  justify-content: center;
 }
 
-.img_list li {
-  width: 100%;
+.list-info {
+  margin-left: 3%;
+  width: 60%;
 }
 
-.img_list img {
-  width: 96%;
-  height: auto;
-  margin-top: 0%;
+.rank {
+  font-size: 2vw;
+  padding-top: 1vh;
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  width: 2vw;
 }
 
-a {
-  margin: 0;
-  color: inherit;
-  text-decoration: none;
+.rank img {
+  min-width: 1.7vw;
+  max-width: 1.7vw;
+  padding-left: 0.2vw !important;
 }
 
-a:active {
-  color: inherit;
-  text-decoration: none;
+.list-info span {
+  font-size: 1.3vw;
 }
 
-.img_list img.like-icon {
-  width: auto;
-  height: 20px;
-  margin-right: 0px;
-  padding-right:5%;
-}
-
-.img_list div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#num {
-  font-size: 15px;
-  font-family: sans-serif;
-  font-weight: 600;
+.heart {
   color: rgba(232, 82, 82, 1);
 }
 
-.img_list li div div {
-  width: 40px;
-  padding-right: 13px;
+.sec2 ul li img {
+  width: 30%;
+  padding-left: 1vw;
+}
+
+.sec2 ul li div img {
+  width: 20px;
+}
+
+.list-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+}
+
+.game-info li {
+  width: 7vw;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  display: flex;
+  flex-direction: column;
+  border: 2px solid grey;
+  color: gray;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%; /* Adjusted border-radius for circles */
+  height: 7vw !important; /* Set your desired height */
+}
+
+.game-info li p {
+  margin: 0;
+  font-size: 1.5vw;
 }

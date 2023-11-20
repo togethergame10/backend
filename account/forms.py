@@ -3,6 +3,14 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from .models import User
 
+def hp_validator(value):
+    if len(str(value)) != 10:
+        raise forms.ValidationError('정확한 핸드폰 번호를 입력해주세요.')
+
+def student_id_validator(value):
+    if len(str(value)) != 8:
+        raise forms.ValidationError('본인의 학번 8자리를 입력해주세요.')
+
 
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='비밀번호', widget=forms.PasswordInput)

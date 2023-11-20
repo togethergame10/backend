@@ -2,43 +2,64 @@
 {% load static %}
 
 {% block extrahead %}
-<link rel="stylesheet" href="{% static 'css/main.css' %}?after" />
+<link rel="stylesheet" href="{% static 'css/mypage.css' %}?after" />
 {% endblock %}
 
 {% block content %}
-<h2>{{ target_user.nickname }}님, 안녕하세요!</h2>
-<a href="">내 정보 수정 ></a><br><br>
+<div class="container">
+  <div class="mypage-info">
+    <h2>{{ target_user.nickname }}님, 안녕하세요!</h2>
+    <a href="#">내 정보 수정 ></a>
+    <a href="#">내가 쓴 글 목록 ></a>
+  </div>
+    <div class="my-game" >
+      <div class="like-game">
+        <div class="like-game-title">
+          <img src="{% static 'img/blacklike.png' %}" alt="" />
+            <a href="#"><span>좋아요 한 게임</span></a>
+            <span>{{ liked_list | length }}</span>
+        </div>
+        <ul>
+        {% for game in liked_list %}
+          <a href="{% url 'game:detail' pk=game.pk%}">
+              <li>
+                  {% if game.image %}
+                      <img src="{{ game.image.url }}" width="100px" height="100px" alt="">
+                  {% else %}
+                      <img src="{% static 'img/thumbnail.png' %}" alt="">
+                  {% endif %}
 
-    <!-- 최근 인기 게임 div -->
-    <div class="img_wrapper" >
-      <!-- 좋아요한 게임 배너 -->
-      <div class="likemore">
-        <img src="{% static 'img/blacklike.png' %}">
-        <p>좋아요한 게임</p>
-        <a href="">더보기</a><br>
-        <h4>{{ liked_list | length }}</h4>
+                  <div class="like-game-element">
+                      <div class="about-game">
+                          <h4>{{game.title | truncatechars:45 }}</h4>
+                          <p>2023.12.11</p>
+                      </div>
+                      <div class="likes">
+                          <img src="{% static 'img/likefull.png' %}" alt="하트이미지" />
+                          <span>{{game.likes.count }}</span>
+                      </div>
+                  </div>
+              </li>
+          </a>
+        {% endfor %}
+        </ul>
       </div>
 
-      <!-- 게임 div -->
-      <ul class="img_list">
-      {% for game in liked_list %}
-        {% include 'snippets/game_part.html' with game=game %}
-      {% endfor %}
-      </ul>
+      <div class="save-game">
+        <div class="like-game-title">
+          <img src="{% static 'img/folder.png' %}" alt="" />
+          <a href="{% url 'gameplaylist:list' %}"><span>담은 게임</span></a>
+          <span>37</span>
+        </div>
+        <ul>
+          {% for gamelist in collected_list %}
+            {% include 'snippets/game_part2.html' with game=game %}
+          {% endfor %}
+        </ul>
+      </div>
+
     </div>
-
-      <hr>
-
-      <h3>담은 게임</h3>
-      <a href="{% url 'gameplaylist:list' %}">더보기</a><br>
-      <br><br>
-      {% for gamelist in collected_list %}
-      <a href="{% url 'gameplaylist:detail' pk=gamelist.pk %}">
-        {{ gamelist.title }} <br>
-      </a>
-      {% endfor %}
-
-        <hr>
+  </div>
 
 
 

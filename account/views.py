@@ -7,9 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 from account.forms import UserCreationForm
 
-def index(request):
-    return render(request, 'index.html')
-
 @csrf_exempt
 def signup(request):
     if request.method == "POST": #post 요청 시 form값 확인 후 회원가입
