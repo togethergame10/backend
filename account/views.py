@@ -7,6 +7,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 from account.forms import UserCreationForm
 
+from account.models import User
+from game.models import Game, Situation
+
 @csrf_exempt
 def signup(request):
     if request.method == "POST": #post 요청 시 form값 확인 후 회원가입
@@ -27,4 +30,15 @@ def signup(request):
     else: #get일때
         form = UserCreationForm()
         return render(request, 'account/signup.html', {'form': form})
+
+def LikeMoreView(request,pk):
+    user = User.objects.get(pk=pk)
+    liked_list = Game.objects.filter(likes__in=user.like.all())[:2]
+    colelcted_list = user.collected_gamelist.all()
+
+    return render(request, 'account/like_more.html', {
+        'target_user': user,
+        'liked_list': liked_list,
+        'collected_list': colelcted_list,
+    })
 

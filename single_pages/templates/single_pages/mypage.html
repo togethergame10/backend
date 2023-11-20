@@ -16,7 +16,7 @@
       <div class="like-game">
         <div class="like-game-title">
           <img src="{% static 'img/blacklike.png' %}" alt="" />
-            <a href="#"><span>좋아요 한 게임</span></a>
+            <a href="{% url 'account:like_more' pk=user.pk%}"><span>좋아요 한 게임</span></a>
             <span>{{ liked_list | length }}</span>
         </div>
         <ul>
@@ -60,9 +60,4 @@
 
     </div>
   </div>
-
-
-
-
-
 {% endblock %}

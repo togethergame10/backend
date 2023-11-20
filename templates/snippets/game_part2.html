@@ -7,15 +7,11 @@
                 <img src="{% static 'img/thumbnail.png' %}" alt="">
             {% endif %}
 
-            <div class="like-game-element">
-                <div class="about-game">
-                    <h4>{{game.title | truncatechars:45 }}</h4>
-                    <p>2023.12.11</p>
+            <div>
+                <h4>{{game.title | truncatechars:45 }}</h4>
+                <img src="{% static 'img/graylike.png' %}" class="like-icon" />
                 </div>
-                <div class="likes">
-                    <img src="{% static 'img/likefull.png' %}" alt="하트이미지" />
-                    <span>{{game.likes.count }}</span>
-                </div>
+                <h6>2023.12.11</h6>
             </div>
         </li>
     </a>

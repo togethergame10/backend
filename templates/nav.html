@@ -26,9 +26,9 @@
               <a href="{% url 'account:signup' %} ">회원 가입</a>
             </li>
             {% else %}
-            <li><a href="{% url 'page:mypage' pk=user.pk%}"><span>MyPage</span></a></li>
+            <li><a href="{% url 'page:mypage' pk=user.pk%}"><span>마이페이지</span></a></li>
             <li>
-                <a href="{% url 'account:logout' %}"><span>logout</span></a>
+                <a href="{% url 'account:logout' %}"><span>로그아웃</span></a>
             </li>
             {% endif %}
         </ul>

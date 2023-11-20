@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/like_more.css' %}?after" />
+{% endblock %}
+
+{% block content %}
+<!-- 최근 인기 게임 div -->
+    <div class="img_wrapper">
+      <!-- 좋아요한 게임 배너 -->
+      <div class="likemore">
+        <img src="{% static 'img/blacklike.png' %}" />
+        <p>좋아요한 게임</p>
+        <h4>37</h4>
+      </div>
+
+      <!-- 게임 div -->
+      <ul class="img_list">
+        {% for game in liked_list %}
+          <a href="{% url 'game:detail' pk=game.pk%}">
+              <li>
+                  {% if game.image %}
+                      <img src="{{ game.image.url }}" width="100px" height="100px" alt="">
+                  {% else %}
+                      <img src="{% static 'img/thumbnail.png' %}" alt="">
+                  {% endif %}
+
+                  <div>
+                      <h4>{{game.title | truncatechars:45 }}</h4>
+                      <img src="{% static 'img/graylike.png' %}" class="like-icon" />
+                  </div>
+                  <h6>2023.12.11</h6>
+              </li>
+          </a>
+        {% endfor %}
+      </ul>
+    </div>
+{% endblock %}
