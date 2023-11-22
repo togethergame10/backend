@@ -1,63 +1,219 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extrahead %}
-<link rel="stylesheet" href="{% static 'css/main.css' %}?after" />
+<link rel="stylesheet" href="{% static 'css/more_game.css' %}?after" />
 {% endblock %}
 {% block content %}
 
-
-  <div>
-    <div style="text-align:center; max-width: 700px; margin: 4rem auto;">
-        <h1>{{target_game.title }}</h1>
-        <div>
-            {% if user.is_authenticated and user == target_game.author %}
-                <a class="btn btn-info float-right "href="{% url 'game:update' pk=target_game.pk %}" role="button">
-                        <i class="fas fa-pen"> Edit Game</i>
-                </a>
+    <div class="container">
+      <div class="sec1">
+        <div class="sec1-wrapper">
+          <h1>{{target_game.title}}</h1>
+          <div class="user-info">
+            <span>{{target_game.author.nickname}}</span>
+            <span>{{target_game.created_at | date:'Y.m.d' }}</span>
+          </div>
+          <div class="thumbnail-wrapper">
+            {% if target_game.image %}
+              <img src="{{ target_game.image.url }}" alt="">
+            {% else %}
+              <img src="{% static 'img/title.png' %}" alt="썸네일">
             {% endif %}
-            {% if user.is_authenticated and user == target_game.author %}
-            <a class="btn btn-info float-right "href="{% url 'game:delete'  pk=target_game.pk %}" role="button">
-                    <i class="fas fa-pen">Delete Game</i>
-            </a>
-        {% endif %}
-
-            <!-- 좋아요 기능 -->
-            <div style="margin:10px">
-                {% include 'game/like.html' with user=user %}
-            </div>
-
-            <div style="margin:10px">
-                {% include 'gameplaylist/update.html' with user=user game=target_game gameplaylists=gameplaylists checked_gameplaylists=checked_gameplaylists  %}
-            </div>
+          </div>
+          <ul class="game-info">
+            <li>
+              <span>인원</span>
+              <p>{{ target_game.min_num_ppl}}명-{{ target_game.max_num_ppl}}명</p>
+            </li>
+            <li>
+              <span>시간</span>
+              <p>{{ target_game.min_time }}분-{{ target_game.max_time }}분</p>
+            </li>
+            <li>
+              <span>상황</span>
+              <p>{{ target_game.situation }}</p>
+            </li>
+            <li>
+              <span>장소</span>
+              <p>{{ target_game.place }}</p>
+            </li>
+            <li>
+              <span>유형</span>
+              <p>{{ target_game.game_type.all | join:", " }}</p>
+            </li>
+          </ul>
+          <div class="buttons">
+            <button id="like-button" data-game-id="{{ target_game.pk }}" data-liked="{{ is_like }}">
+              {% if is_like %}
+              <img src="{% static 'img/likefull.png' %}" alt="좋아요" /><span id="like-count">{{ target_game.likes.count }}</span>
+              {% else %}
+              <img src="{% static 'img/like.png' %}" alt="좋아요" /><span id="like-count">{{ target_game.likes.count }}</span>
+              {% endif %}
+            </button>
+            <button class="playlist-button" onclick="openModal()">
+              <img src="{% static 'img/folder.png' %}" alt="담기" /> 담기
+            </button>
+          </div>
 
         </div>
+      </div>
 
-        <hr>
-
-        {% if target_game.image %}
-        <img style="width:100%; border-radius:1rem; margin:2rem 0;"
-             src="{{target_game.image.url }}" alt="">
-        {% else %}
-            <img src="{% static 'img/thumbnail.png' %}" alt="">
-        {% endif %}
-
-        <p>준비: {{target_game.preparation}}</p>
-        <p>방법: {{target_game.explanation}}</p>
-        <p>팁: {{target_game.tip}}</p>
-
-        <p>
-            {{target_game.place}}
-            / {{target_game.min_time}}분 ~ {{target_game.max_time}}분
-            / {{target_game.min_num_ppl}}명 ~ {{target_game.max_num_ppl}}명
-            / {{target_game.game_type.all | join:", "}}
-            / {{target_game.situation}}
-        </p>
-
-        <hr>
-
-
+      <div class="sec2">
+        <div class="sec2-wrapper">
+          <div class="about-game">
+            <h3>게임 준비</h3>
+            <p>{{target_game.preparation}}</p>
+            <h3>게임 방법</h3>
+            <p>{{target_game.explanation}}</p>
+            <h3>진행 팁</h3>
+            <p>{{target_game.tip}}</p>
+          </div>
+          <div class="post-buttons">
+            <button onclick="updatePost()"><img src="{% static 'img/fix.png' %}" alt="수정"/>수정</button>
+            <button class="delete-button" onclick="deletePost()">
+              <img src="{% static 'img/trash.png' %}" alt="삭제" />삭제
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
-  </div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span onclick="closeModal()" class="close"
+          ><img src="{% static 'img/close.png' %}" alt="닫기"
+        /></span>
+        <div class="modal-title">PlayList 선택</div>
+        <ul>
+          {% if user.is_authenticated %}
+            {% for gameplaylist in gameplaylists %}
+            <li>
+              <span id="playlist1">{{gameplaylist.title}}</span>
+              <button class="collect-button" data-game-id="{{ target_game.pk }}" data-gameplaylist-id ="{{ gameplaylist.pk }}"
+               data-collected ={% if not gameplaylist in checked_gameplaylists %}
+                                "선택"
+                                {% else %}
+                                "취소"
+                                {% endif %} ></button>
+            </li>
+
+            {% endfor %}
+          {% else %}
+            <p>로그인해주세요</p>
+          {% endif %}
+        </ul>
+        <div class="modal-button">
+          <a href="{% url 'gameplaylist:list'%}">PlayList 추가하기</a>
+          <div class="finish-button">
+            <button onclick="closeModal()">완료</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<hr>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script>
+  $(document).ready(function() {
+
+    // 페이지 로드 시 게임 플레이리스트 버튼 색깔 변경
+     $('.collect-button').each(function() {
+        var collected = $(this).data('collected');
+        $(this).text(collected);
+        if (collected == '선택') {
+            $(this).css('background-color', 'rgba(187, 215, 184, 1)');
+        } else {
+            $(this).css('background-color', 'rgba(122, 159, 118, 1)');
+        }
+     });
+
+    // 좋아요 클릭 시
+    $("#like-button").on("click", function() {
+      var game_id = $(this).data("game-id");
+      var liked = $(this).data("liked");
+
+      var $likeButton = $("#like-button");
+      var $likeImage = $likeButton.find("img");
+
+      $.ajax({
+        type: "POST",
+        url: "{% url 'game:like' %}",
+        data: {
+          'game_id': game_id,
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        success: function(response) {
+          if (response.success) {
+            $likeImage.attr("src", response.liked ? "{% static 'img/likefull.png' %}" : "{% static 'img/like.png' %}");
+            $("#like-count").text(response.like_count);
+            $("#like-button").data("liked", !liked);
+          } else {
+            alert(response.error);
+          }
+        },
+        error: function() {
+          alert("오류가 발생했습니다.");
+        }
+      });
+    });
+  });
+
+  // 수정 클릭 시
+  function updatePost() {
+      window.location.href = "{% url 'game:update' pk=target_game.pk %}";
+  }
+
+  // 삭제 클릭 시
+  function deletePost() {
+    if (confirm("게시글을 삭제하시겠습니까??") == true) {
+      window.location.href = "{% url 'game:delete' pk=target_game.pk %}";
+    } else {
+      //취소
+      return false;
+    }
+  }
+
+  // 담기 버튼 클릭 시
+  function openModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "flex"; // 모달 표시
+  }
+
+  function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none"; // Hide the modal
+  }
+
+  // 플레이 리스트 선택/취소 클릭 시
+  $(document).ready(function() {
+    $(".collect-button").on("click", function() {
+      var button = $(this);  // 클릭된 버튼을 변수에 저장
+      var game_id = button.data("game-id");
+      var gameplaylist_id = button.data("gameplaylist-id");
+      $.ajax({
+        type: "POST",
+        url: "{% url 'gameplaylist:add_or_remove_game' %}",
+        dataType: 'json',
+        data: {
+          'game_id': game_id,
+          'gameplaylist_id': gameplaylist_id,
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        success: function(response) {
+            var buttonText = response.collected ? "취소" : "선택";
+            button.text(buttonText);
+            var buttonColor = response.collected ? "rgba(122, 159, 118, 1)" : "rgba(187, 215, 184, 1)";
+            button.css("background-color", buttonColor);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alert("오류가 발생했습니다.");
+        }
+      });
+    });
+  });
+
+  </script>
 
 {% endblock %}
+

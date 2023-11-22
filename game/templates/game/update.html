@@ -37,7 +37,7 @@
                 <div class="select-options" id="group3">
                   <button class="option" value="전체">전체</button>
                   <button class="option" value="MT">MT</button>
-                  <button class="option" value="내기">내기</button>
+                  <button class="option" value="술게임">술게임</button>
                   <button class="option" value="기타">기타</button>
                 </div>
 
@@ -84,6 +84,18 @@
 
 
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var place_button = document.getElementById("group4").querySelector('button[value="{{ place }}"]');
+        place_button.classList.toggle("selected", true);
+
+
+        var situation_button = document.getElementById("group3").querySelector('button[value="{{ situation }}"]');
+        situation_button.classList.toggle("selected", true);
+
+        var game_type_button = document.getElementById("group5").querySelector('button[value="{{ game_type }}"]');
+        game_type_button.classList.toggle("selected", true);
+    });
+
       // 옵션 선택 시 실행될 함수
       var groups = document.querySelectorAll(".select-options");
       for (var i = 0; i < groups.length; i++) {
