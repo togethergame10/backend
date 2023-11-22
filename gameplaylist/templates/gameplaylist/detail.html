@@ -10,7 +10,7 @@
         <div>
             {% if user.is_authenticated and user == target_gameplaylist.author %}
                 <a class="btn btn-info float-right "href="{% url 'gameplaylist:delete'  pk=target_gameplaylist.pk %}" role="button">
-                        <i class="fas fa-pen">Delete Game</i>
+                        <i class="fas fa-pen">Delete Gamelist</i>
                 </a>
             {% endif %}
         </div>
@@ -30,7 +30,9 @@
             {% if games %}
                 {% for game in games %}
                     {% include 'snippets/game_part.html' with game=game %}
-                    <a href="{% url 'gameplaylist:remove_game' pk1=target_gameplaylist.pk pk2=game.pk %}" role="button">삭제</a>
+                        {% if user.is_authenticated and user == target_gameplaylist.author %}
+                        <a href="{% url 'gameplaylist:remove_game' pk1=target_gameplaylist.pk pk2=game.pk %}" role="button">삭제</a>
+                        {% endif %}
                 {% endfor %}
             {% endif %}
         </div>

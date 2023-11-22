@@ -33,12 +33,11 @@ def signup(request):
 
 def LikeMoreView(request,pk):
     user = User.objects.get(pk=pk)
-    liked_list = Game.objects.filter(likes__in=user.like.all())[:2]
-    colelcted_list = user.collected_gamelist.all()
+    liked_list = Game.objects.filter(likes__in=user.like.all())
 
     return render(request, 'account/like_more.html', {
         'target_user': user,
         'liked_list': liked_list,
-        'collected_list': colelcted_list,
+
     })
 

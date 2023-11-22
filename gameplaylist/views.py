@@ -55,6 +55,9 @@ class GamePlaylistListView(ListView, FormMixin):
     def get_success_url(self):
         return reverse('page:mypage', kwargs={'pk':self.request.user.pk})
 
+    def get_queryset(self):
+        return GamePlaylist.objects.filter(collectors=self.request.user)
+
 ## 게임플리 상세
 class GamePlaylistDetailView(DetailView):
     model = GamePlaylist
@@ -91,3 +94,5 @@ def removeGame(request, pk1, pk2):
         if game in gamelist.games.all():
             gamelist.games.remove(game)
     return redirect('gameplaylist:detail', pk=pk1)
+
+## 담은 게임에서 게임 플리 삭제

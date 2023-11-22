@@ -84,7 +84,6 @@ nav {
   font-weight: 900;
 }
 
-
 h2 {
   margin-bottom: 0;
 }
@@ -106,7 +105,7 @@ h2 {
   justify-content: center;
 }
 
-.select-name{
+.select-name {
   width: 15%;
   display: flex;
   flex-direction: column;
@@ -115,7 +114,7 @@ h2 {
   padding: 0 3% 0 5%;
 }
 
-.select-buttons{
+.select-buttons {
   width: 70%;
   padding: 0 5% 0 2%;
 }
@@ -187,6 +186,12 @@ h2 {
   max-height: 550px;
   overflow-y: auto;
 }
+
+.sec2 ul a {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+}
 .sec2 ul li {
   list-style: none;
   display: flex;
@@ -239,4 +244,8 @@ h2 {
 .game-info li p {
   margin: 0;
   font-size: 1.5vw;
+}
+
+.heart span {
+  color: red;
 }

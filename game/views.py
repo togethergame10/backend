@@ -9,11 +9,10 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView, D
 from game.forms import GameCreationForm
 from game.models import Game, Place, Situation, GameType, Like
 
-
-# 게임 등록
 from gameplaylist.models import GamePlaylist
 
 
+# 게임 등록
 class GameCreateView(CreateView):
     model = Game
     context_object_name = 'target_game'
