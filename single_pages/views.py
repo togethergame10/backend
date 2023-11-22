@@ -51,11 +51,16 @@ def SituationRankingPage(request, pk):
 # 마이페이지
 def myPage(request, pk):
     user = User.objects.get(pk=pk)
-    liked_list = Game.objects.filter(likes__in=user.like.all())[:2]
-    colelcted_list = user.collected_gamelist.all()
+    liked_list = Game.objects.filter(likes__in=user.like.all())
+    like_count = liked_list.count
+    liked_list = liked_list[:2]
+    collected_list = user.collected_gamelist.all()[:2]
+    collect_count = user.collected_gamelist.count
 
     return render(request, 'single_pages/mypage.html', {
         'target_user':user,
         'liked_list':liked_list,
-        'collected_list': colelcted_list,
+        'like_count':like_count,
+        'collected_list': collected_list,
+        'collect_count':collect_count
     })

@@ -1,54 +1,172 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extrahead %}
-<link rel="stylesheet" href="{% static 'css/main.css' %}?after" />
+<link rel="stylesheet" href="{% static 'css/search.css' %}?after" />
 {% endblock %}
 {% block content %}
-    <div class="container" >
-
-        <!-- 필터 검색 -->
-        <form action="{% url 'game:search_filter' %}" method="get">
-            {% csrf_token %}
-            <input id="place-input" class="form-control" type="text"  name="place_str"
-               {% if place %} value="{{place}}" {% endif %}
-           placeholder="장소" aria-label="Enter search term..." aria-describedby="button-search" />
-            <input id="gameType-input" class="form-control" type="text"  name="game_type_str"
-                   {% if game_type %} value="{{game_type}}" {% endif %}
-                   placeholder="유형" aria-label="Enter search term..." aria-describedby="button-search" />
-            <input id="situation-input" class="form-control" type="text" name="situation_str"
-                   {% if situation %} value="{{situation}}" {% endif %}
-                   placeholder="상황" aria-label="Enter search term..." aria-describedby="button-search" />
-            <input type="submit" class="btn btn-primary">
-            <select id="sort-select" style="margin:0 1rem;" name="sort">
-              <option class="sort-date" value="recent" {% if sort == "recent" %} selected {% endif %}>최신순</option>
-              <option class="sort-likes" value="like"  {% if sort == "like" %} selected {% endif %} >인기순</option>
-            </select>
-        </form>
-
-
-        <!-- 게임 목록 -->
-        {% if game_list %}
-            {% for game in game_list %}
-              <a href="{% url 'game:detail' pk=game.pk %}">
-                <div style="text-align:center; border: 1px solid; margin: 1rem; color:black;">
-                    <h3>{{game.title}}</h3><br>
-                    {{game.place}}
-                    / {{game.min_time}}분 ~ {{game.max_time}}분
-                    / {{game.min_num_ppl}}명 ~ {{game.max_num_ppl}}명
-                    / {{game.game_type.all | join:", "}}
-                    / {{game.situation}}
-                </div>
-              </a>
-            {% endfor %}
-        {% else %}
-            <div class="text-center">
-              <h1>Nothing...</h1>
+    <h2>어떤 게임을 찾고 계시나요?</h2>
+    <div class="container">
+      <div class="sec1">
+        <div class="background">
+          <div class="select-name">
+            <span>상황</span>
+            <span>장소</span>
+            <span>장르</span>
+            <span>정렬 방식</span>
+          </div>
+          <div class="select-buttons">
+            <div class="select-options" id="group1">
+              <button class="option selected" value="전체">전체</button>
+              <button class="option" value="MT">MT</button>
+              <button class="option" value="내기">내기</button>
+              <button class="option" value="기타">기타</button>
             </div>
-        {% endif %}
 
+            <div class="select-options" id="group2">
+              <button class="option selected" value="전체">전체</button>
+              <button class="option" value="실내">실내</button>
+              <button class="option" value="야외">야외</button>
+              <button class="option" value="온라인">온라인</button>
+            </div>
+
+            <div class="select-options" id="group2">
+              <button class="option selected" value="전체">전체</button>
+              <button class="option" value="퀴즈">퀴즈</button>
+              <button class="option" value="순발력">순발력</button>
+              <button class="option" value="두뇌게임">두뇌게임</button>
+            </div>
+
+            <div class="select-options" id="group2">
+              <button class="option" value="전체">전체</button>
+              <button class="option selected" value="recent">최신순</button>
+              <button class="option" value="like">인기순</button>
+              <button class="option" value="가나다순">가나다순</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button id="game-search">검색</button>
+          <button id="reset">초기화</button>
+        </div>
+      </div>
+      <div class="sec2">
+        <ul>
+            {% if game_list %}
+            {% for game in game_list %}
+          <a href="{% url 'game:detail' pk=game.pk %}">
+            <li>
+              {% if game.image %}
+                <img style="width:100%; border-radius:1rem; margin:2rem 0;"
+                     src="{{ game.image.url }}" alt="">
+              {% else %}
+                    <img src="{% static 'img/thumbnail.png' %}" alt="">
+              {% endif %}
+              <div class="list-info">
+                <div class="list-title">
+                  <span>{{game.title}}</span>
+                  <div class="heart">
+                    <img src="{% static 'img/likefull.png' %}" alt="" /><span>{{game.likes.count}}</span>
+                  </div>
+                </div>
+                <ul class="game-info">
+                  <li>
+                    <span>인원</span>
+                    <p>{{game.min_num_ppl}}명~{{game.max_num_ppl}}명</p>
+                  </li>
+                  <li>
+                    <span>시간</span>
+                    <p>{{ game.min_time }}분~{{ game.max_time }}분</p>
+                  </li>
+                  <li>
+                    <span>상황</span>
+                    <p>{{ game.situation }}</p>
+                  </li>
+                  <li>
+                    <span>장소</span>
+                    <p>{{ game.place }}</p>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </a>
+            {% endfor %}
+            {% else %}
+                <div class="text-center">
+                  <h1>Nothing...</h1>
+                </div>
+            {% endif %}
+
+        </ul>
+      </div>
     </div>
 
+    <script>
+      // 옵션 선택 시 실행될 함수
+      var groups = document.querySelectorAll(".select-options");
+      for (var i = 0; i < groups.length; i++) {
+        groups[i].addEventListener("click", function (event) {
+          var options = this.querySelectorAll(".option");
+          for (var j = 0; j < options.length; j++) {
+            options[j].classList.toggle("selected", false);
+          }
+          if (event.target.classList.contains("option")) {
+            event.target.classList.toggle("selected", true);
+          }
+        });
+      }
 
+      // 검색 버튼 클릭 시 실행될 함수
+      document.getElementById("game-search").addEventListener("click", function () {
+          var selected = document.querySelectorAll(".selected");
+          if (selected.length > 0) {
+            var selected_value = Array.from(selected).map(
+              (option) => option.value
+            );
+
+            selectedOptions = ["situation_str", "place_str", "game_type_str", "sort"];
+
+            // 여기에 추가: 폼을 동적으로 생성하여 Django로 데이터 전송
+            var form = document.createElement("form");
+            form.action = "{% url 'game:search_filter' %}"; // Django URL 설정에 따라 변경
+            form.method = "get";
+
+            var csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "csrfmiddlewaretoken";
+            csrfInput.value = "{{ csrf_token }}"; // Django 템플릿 태그를 사용하여 토큰을 가져옴
+            form.appendChild(csrfInput);
+
+            for (var i = 0; i < selected_value.length; i++) {
+              var input = document.createElement("input");
+              if (selected_value[i] != "전체"){
+                input.type = "hidden";
+                input.name = selectedOptions[i];
+                input.value = selected_value[i];
+                form.appendChild(input);
+              }
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+          } else {
+            alert("옵션을 선택해주세요");
+          }
+        });
+
+      // 초기화 버튼 클릭 시 실행될 함수
+      document.getElementById("reset").addEventListener("click", function () {
+        // 모든 선택한 옵션들 초기화
+        var options = document.querySelectorAll(".option");
+        for (var j = 0; j < options.length; j++) {
+          options[j].classList.toggle("selected", false);
+        }
+        // 결과 영역 초기화
+        document.getElementById("결과").textContent = "";
+      });
+    </script>
+
+    <hr>
 
   </div>
 
@@ -56,3 +174,5 @@
 
 
 {% endblock %}
+
+

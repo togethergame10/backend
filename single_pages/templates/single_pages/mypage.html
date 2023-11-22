@@ -17,7 +17,7 @@
         <div class="like-game-title">
           <img src="{% static 'img/blacklike.png' %}" alt="" />
             <a href="{% url 'account:like_more' pk=user.pk%}"><span>좋아요 한 게임</span></a>
-            <span>{{ liked_list | length }}</span>
+            <span>{{ like_count }}</span>
         </div>
         <ul>
         {% for game in liked_list %}
@@ -32,11 +32,11 @@
                   <div class="like-game-element">
                       <div class="about-game">
                           <h4>{{game.title | truncatechars:45 }}</h4>
-                          <p>2023.12.11</p>
+                          <p>{{ game.created_at | date:'Y.m.d' }}</p>
                       </div>
                       <div class="likes">
                           <img src="{% static 'img/likefull.png' %}" alt="하트이미지" />
-                          <span>{{game.likes.count }}</span>
+                          <span>{{ game.likes.count }}</span>
                       </div>
                   </div>
               </li>
@@ -49,11 +49,11 @@
         <div class="like-game-title">
           <img src="{% static 'img/folder.png' %}" alt="" />
           <a href="{% url 'gameplaylist:list' %}"><span>담은 게임</span></a>
-          <span>37</span>
+          <span>{{ collect_count }}</span>
         </div>
         <ul>
           {% for gamelist in collected_list %}
-            {% include 'snippets/game_part2.html' with game=game %}
+
           {% endfor %}
         </ul>
       </div>

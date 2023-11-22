@@ -8,4 +8,3 @@ class GameCreationForm(forms.ModelForm):
         model = Game
         fields = ['title','min_num_ppl', 'max_num_ppl','min_time', 'max_time',
                   'preparation', 'explanation', 'tip', 'image']
-
