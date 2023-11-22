@@ -95,7 +95,7 @@ h2 {
   margin:auto;
   flex-direction: column;
   justify-content: center;
-  width: 80%;
+  width: 62vw;
 }
 
 .sec1 p{
@@ -133,6 +133,7 @@ h2 {
 .rank img {
   min-width: 1.7vw;
   max-width: 1.7vw;
+  /* height:min-content; */
   padding-left: 0.2vw !important;
 }
 
@@ -144,13 +145,22 @@ h2 {
   color: rgba(232, 82, 82, 1);
 }
 
-.sec2 ul li img {
-  width: 30%;
+
+.thumbnail {
+  width: 18.75vw;
+  height: 10.25vw;
   padding-left: 1vw;
+  object-fit: cover;
 }
 
 .sec2 ul li div img {
   width: 20px;
+}
+
+.sec2 ul a {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
 }
 
 .list-title {

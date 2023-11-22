@@ -1,0 +1,45 @@
+{% load static %}
+
+        <li>
+            <span class="rank">
+                {% if forloop.counter == 1 %}
+              <img src="{% static 'img/crown.png' %}" alt="" />
+                {% endif %}
+              {{ forloop.counter }}
+            </span>
+            {% if game.image %}
+                <img src="{{ game.image.url }}" alt="게임사진" class="thumbnail">
+            {% else %}
+                <img src="{% static 'img/thumbnail.png' %}" alt="thumbnail" class="thumbnail">
+            {% endif %}
+
+            <div class="list-info">
+                <div class="list-title">
+
+                    <span>{{game.title | truncatechars:45 }}</span>
+
+                    <div class="heart">
+                        <img src="{% static 'img/likefull.png' %}" alt="" />
+                        <span>{{game.likes.count }}</span>
+                    </div>
+                </div>
+                <ul class="game-info">
+                    <li>
+                      <span>인원</span>
+                      <p>{{game.min_num_ppl}}~{{game.max_num_ppl}}명</p>
+                    </li>
+                    <li>
+                      <span>시간</span>
+                      <p>{{game.min_time}}~{{game.max_time}}분</p>
+                    </li>
+                    <li>
+                      <span>상황</span>
+                      <p>{{game.situation}}</p>
+                    </li>
+                    <li>
+                      <span>범위</span>
+                      <p>{{game.place}}</p>
+                    </li>
+                </ul>
+            </div>
+        </li>

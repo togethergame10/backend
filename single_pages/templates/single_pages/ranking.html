@@ -1,33 +1,46 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block extrahead %}
-<link rel="stylesheet" href="{% static 'css/main.css' %}?after" />
+<link rel="stylesheet" href="{% static 'css/main_alcohol.css' %}?after" />
 {% endblock %}
 {% load static %}
 
 {% block content %}
 
+  <!-- 최근 인기 게임 div -->
 {% if liked_ranking %}
-<div class="img_wrapper">
-  <p>{{ title }}</p>
-  <ul class="img_list">
-    {% for game in liked_ranking %}
-      {% include 'snippets/game_part.html' with game=game %}
-    {% endfor %}
-  </ul>
+<div class="container">
+  <div class="sec1">
+    <p>{{ title }}</p>
+  </div>
+  <div class="sec2">
+    <ul>
+      {% for game in liked_ranking %}
+      <a href="{% url 'game:detail' pk=game.pk%}">
+        {% include 'snippets/ranking_game_part.html' with game=game %}
+      </a>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
     {% endif %}
 
 {% if situation_ranking %}
-<div class="img_wrapper">
-  <p>{{ situation }}</p>
-  <ul class="img_list">
-  {% for game in situation_ranking %}
-    {% include 'snippets/game_part.html' with game=game %}
-  {% endfor %}
-  </ul>
+<div class="container">
+  <div class="sec1">
+    <p>{{ situation }}</p>
+  </div>
+  <div class="sec2">
+    <ul>
+      {% for game in situation_ranking %}
+        {% include 'snippets/game_part.html' with game=game %}
+      {% endfor %}
+    </ul>
+  </div>
 </div>
-  {% endif %}
+    {% endif %}
+
 
 
 <script>

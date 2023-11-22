@@ -12,7 +12,7 @@
       <div class="likemore">
         <img src="{% static 'img/blacklike.png' %}" />
         <p>좋아요한 게임</p>
-        <h4>{{ liked_list | length }}</h4>
+        <h4>{{game.likes.count }}</h4>
       </div>
 
       <!-- 게임 div -->

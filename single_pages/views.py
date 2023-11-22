@@ -34,7 +34,7 @@ def LikedRankingPage(request):
     liked_ranking = Game.objects.filter(likes__created_at__gte=one_month_ago) \
                     .annotate(like_count=Count('likes')).order_by('-like_count')[:10]
     return render(request, 'single_pages/ranking.html', {
-        'title': '좋아요 랭킹',
+        'title': '최근 인기',
         'liked_ranking': liked_ranking,
     })
 
