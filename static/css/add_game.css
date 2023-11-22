@@ -33,7 +33,9 @@ html {
 }
 
 .search input {
-  width: 100%;
+  width: calc(
+    100% - 40px
+  ); /* Adjusted width to accommodate the button and image */
   background-color: rgba(251, 249, 246, 1);
   border: 2px solid #bbb;
   border-radius: 20px;
@@ -43,13 +45,13 @@ html {
 
 .search button {
   position: absolute;
-  width: 17px;
-  left: 90%;
-  margin: 0;
+  right: 20px; /* Adjusted right position */
+  width: 30px;
   background: none;
   border: none;
   cursor: pointer;
 }
+
 .search img {
   width: 20px;
 }
@@ -99,18 +101,18 @@ nav {
   justify-content: center;
 }
 
-.select-name{
+.select-name {
   width: 25%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
-.select-name span{
+.select-name span {
   margin-bottom: 10px;
 }
 
-.select-buttons input{
+.select-buttons input {
   width: 30%;
   border-radius: 15px;
   border: none;
@@ -126,7 +128,7 @@ nav {
   flex-direction: column;
 }
 
-h2{
+h2 {
   width: 25%;
   padding-right: 55%;
   margin-bottom: 0;
@@ -170,30 +172,30 @@ h2{
   flex-direction: column;
 }
 
-.sec2 form span{
+.sec2 form span {
   margin: 5px 0 5px 0;
 }
 
-.sec2 form input{
+.sec2 form input {
   border: none;
   background: none;
-  border-bottom: 1px solid rgba(161,161,161, 1);
+  border-bottom: 1px solid rgba(161, 161, 161, 1);
 }
 
-.sec2 form textarea{
+.sec2 form textarea {
   resize: none;
   border: none;
-  background-color: rgba(244,240,235,1);
+  background-color: rgba(244, 240, 235, 1);
   border-radius: 20px;
   padding: 10px;
 }
 
-.buttons{
+.buttons {
   margin-top: 15px;
   padding-left: 60%;
 }
 
-.buttons input{
+.buttons input {
   border: none;
   width: 48%;
   height: 35px;
@@ -201,11 +203,13 @@ h2{
   cursor: pointer;
 }
 
-input:focus, textarea:focus, button:focus {
+input:focus,
+textarea:focus,
+button:focus {
   outline: none;
   border: none;
 }
 
-#submit{
+#submit {
   background-color: rgba(242, 201, 196, 1);
 }
