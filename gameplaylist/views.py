@@ -34,7 +34,7 @@ def deleteGameplaylist(request, pk):
         gameplaylist = GamePlaylist.objects.get(pk=pk)
         if request.user == gameplaylist.author:
             gameplaylist.delete()
-        return redirect('page:mypage', pk=request.user.pk)
+        return redirect('gameplaylist:list')
 
 ## 게임플리 목록
 class GamePlaylistListView(ListView, FormMixin):
@@ -90,6 +90,7 @@ def removeGame(request, pk1, pk2):
     if request.user.is_authenticated:
         gamelist = get_object_or_404(GamePlaylist, pk=pk1)
         game = get_object_or_404(Game, pk=pk2)
+
 
         if game in gamelist.games.all():
             gamelist.games.remove(game)

@@ -178,9 +178,9 @@ nav {
 }
 
 .save-game-buttons img {
-  width: 30px !important;
-  height: 30px !important;
-  object-fit: contain;
+  width: 25px !important;
+  height: 25px !important;
+  object-fit: contain !important;
 }
 
 /* Add this to your existing CSS or create a new CSS file */
@@ -265,4 +265,48 @@ label,
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.filebox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.filebox .upload-name {
+  display: inline-block;
+  height: 30px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: none;
+  border-radius: 15px;
+  width: 50%;
+  background-color: rgba(244, 240, 235, 1);
+}
+
+.filebox label,
+#cancelFile {
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  color: #fff;
+  vertical-align: middle;
+  border: none;
+  background-color: #999999;
+  cursor: pointer;
+  height: 30px;
+  width: 20%;
+  height: 30px;
+  align-items: center;
+  margin-left: 10px;
+  font-size: small;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 }

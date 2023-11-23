@@ -2,39 +2,75 @@
 {% load static %}
 
 {% block extrahead %}
-<link rel="stylesheet" href="{% static 'css/main.css' %}?after" />
+<link rel="stylesheet" href="{% static 'css/save_game.css' %}?after" />
+<script type="text/javascript" src=" {% static 'script/save_game.js' %}?after"></script>
 {% endblock %}
 
 
 {% block content %}
     <div class="container" >
-
-
-        {% include 'gameplaylist/create.html' with user=user %}
+        <div class="save-game-title">
+            <div class="save-game-title-wrapper">
+              <img src="{% static 'img/folder.png' %}" alt="폴더이미지" />
+              <span>담은 게임</span>
+              <span>{{gameplaylist_list.count}}</span>
+            </div>
+            <div class="create-playlist">
+              <button>새 PlayList 생성</button>
+            </div>
+        </div>
 
         <!-- 게임플리 목록 -->
         {% if gameplaylist_list %}
-            {% for gameplaylist in gameplaylist_list %}
-              <a href="{% url 'gameplaylist:detail' pk=gameplaylist.pk %}">
-                <div style="text-align:center; border: 1px solid; margin: 1rem; color:black;">
-                    {% if gameplaylist.image %}
-                            <img style="width:100%; border-radius=1rem; margin:2rem 0;"
-                                 src="{{gameplaylist.image.url }}" alt="">
+        <div class="save-game-element">
+            <ul>
+                {% for gameplaylist in gameplaylist_list %}
+                <a href="{% url 'gameplaylist:detail' pk=gameplaylist.pk %}">
+                <li>
+                        {% if gameplaylist.image %}
+                        <img style="width:100%; border-radius:1rem; margin:2rem 0;"
+                             src="{{gameplaylist.image.url }}" alt="">
                         {% else %}
-                            <img src="{% static 'image/thumbnail.png' %}" alt="">
-                    {% endif %}
-                    <h3>{{gameplaylist.title}}</h3><br>
-                </div>
-              </a>
-            {% endfor %}
+                        <img src="{% static 'img/thumbnail.png' %}" alt="썸네일">
+                        {% endif %}
+                      <div class="save-game-info">
+                        <h3>{{gameplaylist.title}}</h3>
+                        <span>제작자 {{gameplaylist.author.nickname}}</span>
+                          <span>{{gameplaylist.created_at | date:'Y.m.d' }} 생성</span>
+                      </div>
+
+                      <div class="save-game-buttons">
+                        <button onclick="copyLink(this)">
+                          <img src="{% static 'img/share.png' %}" alt="공유" />
+                        </button>
+                        <button class="delete-button" onclick="deletePost( {{gameplaylist.pk}} )">
+                          <img src="{% static 'img/trash.png' %}" alt="제거" />
+                        </button>
+                      </div>
+                    </li>
+                </a>
+
+                {% endfor %}
+            </ul>
+        </div>
         {% else %}
-
-              <h1>Nothing...</h1>
-            </div>
+              <h1>아직 담은 게임이 없습니다</h1>
         {% endif %}
-
     </div>
 
-  </div>
+<!-- Add this at the end of your HTML body -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-elements">
+          <h2>새 PlayList 생성</h2>
+            <form action="{% url 'gameplaylist:create' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit">만들기</button>
+            </form>
+        </div>
+      </div>
+    </div>
 
 {% endblock %}

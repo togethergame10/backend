@@ -37,14 +37,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-function deletePost() {
+function deletePost(pk) {
   if (confirm("게시글을 삭제하시겠습니까??") == true) {
     //확인
+    event.preventDefault();
+    //document.removefrm.submit();
 
-    document.removefrm.submit();
+    location.href = `delete/${pk}`;
   } else {
     //취소
-
+    event.preventDefault();
     return false;
   }
 }
@@ -75,9 +77,56 @@ function copyLink(button) {
     document.body.removeChild(tempInput);
 
     // Optionally, provide some feedback to the user
+    event.preventDefault();
     alert("링크가 클립보드에 복사되었습니다.");
   } else {
     // If the button is not inside an <a> element
+    event.preventDefault();
     alert("링크를 복사할 수 없습니다.");
   }
 }
+
+function cancelAttachment() {
+  // Reset the file input value to clear the selected file
+  document.getElementById("thumbnailInput").value = "";
+}
+
+function cancelAttachment() {
+  // Reset the file input value to clear the selected file
+  var thumbnailInput = document.getElementById("thumbnailInput");
+  if (thumbnailInput) {
+    thumbnailInput.value = "";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  var fileInput = document.getElementById("file");
+  var uploadNameInput = document.querySelector(".upload-name");
+  var cancelFileButton = document.getElementById("cancelFile");
+
+  // Add a change event listener to the file input
+  if (fileInput) {
+    fileInput.addEventListener("change", function () {
+      var selectedFile = fileInput.files[0];
+      if (selectedFile) {
+        uploadNameInput.value = selectedFile.name;
+      } else {
+        uploadNameInput.value = "";
+      }
+    });
+  }
+
+  // Add a click event listener to the cancelFile button
+  if (cancelFileButton) {
+    cancelFileButton.addEventListener("click", function () {
+      // Reset the file input by cloning and replacing it
+      if (fileInput) {
+        var newFileInput = fileInput.cloneNode(true);
+        fileInput.parentNode.replaceChild(newFileInput, fileInput);
+
+        // Clear the upload-name input
+        uploadNameInput.value = "";
+      }
+    });
+  }
+});

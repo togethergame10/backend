@@ -253,6 +253,7 @@ button:focus {
   height: 30px;
   align-items: center;
   margin-left: 10px;
+  font-size: small;
 }
 
 .filebox input[type="file"] {

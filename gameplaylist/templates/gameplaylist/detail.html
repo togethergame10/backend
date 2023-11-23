@@ -1,44 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/more_playlist.css' %}" />
+<script src="{% static 'script/more_playlist.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 
 
-  <div>
-    <div style="text-align:center; max-width: 700px; margin: 4rem auto;">
-        <h1>{{target_gameplaylist.title }}</h1>
-        <div>
-            {% if user.is_authenticated and user == target_gameplaylist.author %}
-                <a class="btn btn-info float-right "href="{% url 'gameplaylist:delete'  pk=target_gameplaylist.pk %}" role="button">
-                        <i class="fas fa-pen">Delete Gamelist</i>
-                </a>
-            {% endif %}
+  <div class="container">
+    <div class="sec1">
+        <h2>{{target_gameplaylist.title }}</h2>
+        <div class="playlist-info">
+            <span>{{ target_gameplaylist.created_at | date:"Y.m.d"}} 생성됨</span>
+          <div class="playlist-buttons">
+            <button onclick="pageLink()">
+              <img src="{% static 'img/share.png' %}" alt="공유" />
+            </button>
+              {% if user.is_authenticated and user == target_gameplaylist.author %}
+                <button onclick="deletePlaylist( {{target_gameplaylist.pk}} )">
+                    <img src="{% static 'img/trash.png' %}" alt="제거" />
+                </button>
+               {% endif %}
+          </div>
         </div>
-
-        <hr>
-
-        {% if target_gameplaylist.image %}
-        <img style="width:100%; border-radius=1rem; margin:2rem 0;"
+        <div class="playlist-thumbnail">
+            {% if target_gameplaylist.image %}
+            <img style="width:100%; border-radius=1rem; margin:2rem 0;"
              src="{{target_gameplaylist.image.url }}" alt="">
-        {% else %}
+            {% else %}
             <img src="{% static 'img/thumbnail.png' %}" alt="..">
-        {% endif %}
-
-        <hr>
-
-        <div>
-            {% if games %}
-                {% for game in games %}
-                    {% include 'snippets/game_part.html' with game=game %}
-                        {% if user.is_authenticated and user == target_gameplaylist.author %}
-                        <a href="{% url 'gameplaylist:remove_game' pk1=target_gameplaylist.pk pk2=game.pk %}" role="button">삭제</a>
-                        {% endif %}
-                {% endfor %}
             {% endif %}
         </div>
-
     </div>
 
-  </div>
+        <div class="sec2">
+            {% if games %}
+            <ul>
+                {% for game in games %}
+                    {% include 'snippets/more_playlist_game_part.html' with game=game %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
 
 {% endblock %}

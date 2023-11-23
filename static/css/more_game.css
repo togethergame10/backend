@@ -159,6 +159,13 @@ nav {
   object-fit: contain;
 }
 
+.post-buttons img {
+  width: 25px;
+  height: 20px;
+  padding-right: 8px;
+  object-fit: contain;
+}
+
 .post-buttons button,
 .buttons button {
   width: 15%;
