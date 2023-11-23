@@ -157,12 +157,6 @@ h2 {
   width: 20px;
 }
 
-.sec2 ul a {
-  text-decoration: none;
-  cursor: pointer;
-  color: black;
-}
-
 .list-title {
   display: flex;
   justify-content: space-between;

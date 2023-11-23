@@ -163,7 +163,6 @@ h2 {
   background-color: rgba(225, 231, 219, 1);
   color: black;
   border: none;
-  padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: flex;
@@ -187,6 +186,10 @@ h2 {
   overflow-y: auto;
 }
 
+.sec2 ul {
+  padding: 0%;
+}
+
 .sec2 ul a {
   text-decoration: none;
   cursor: pointer;
@@ -208,11 +211,15 @@ h2 {
   font-size: 1vw;
 }
 .sec2 ul li img {
-  width: 32%;
+  width: 14vw;
+  height: 7.5vw;
+  object-fit: cover;
 }
 
 .sec2 ul li div img {
-  width: 20px;
+  width: 20px !important;
+  height: 18px;
+  object-fit: contain;
 }
 
 .list-title {
@@ -229,7 +236,7 @@ h2 {
 }
 
 .game-info li {
-  width: 6vw;
+  width: 5.5vw;
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
   display: flex;
   flex-direction: column;
@@ -238,12 +245,12 @@ h2 {
   justify-content: center;
   align-items: center;
   border-radius: 50%; /* Adjusted border-radius for circles */
-  height: 5.5vw !important; /* Set your desired height */
+  height: 5vw !important; /* Set your desired height */
 }
 
 .game-info li p {
   margin: 0;
-  font-size: 1.5vw;
+  font-size: 1.2vw;
 }
 
 .heart span {

@@ -105,8 +105,17 @@ nav {
   flex-direction: column;
 }
 
-.sec1-wrapper img {
+.thumbnail-wrapper {
+  display: flex;
+  justify-content: center;
   width: 100%;
+  padding: 20px 0;
+}
+
+.sec1-wrapper img {
+  width: 80%;
+  height: 16vw;
+  object-fit: cover;
 }
 
 .sec1-wrapper h1 {
@@ -144,7 +153,10 @@ nav {
 }
 
 .buttons img {
-  width: 20px;
+  width: 25px;
+  height: 20px;
+  padding-right: 8px;
+  object-fit: contain;
 }
 
 .post-buttons button,
@@ -163,7 +175,7 @@ nav {
 .game-info {
   display: flex;
   flex-direction: row;
-  padding: 2% 10%;
+  padding: 2% 1%;
   margin: 0;
   justify-content: center;
 }
