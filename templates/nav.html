@@ -13,17 +13,17 @@
     <ul class="nav-list">
         <li class="bold"><a href="{% url 'page:main' %}">인기 게임</a></li>
         <li><a href="{% url 'game:list' %}">게임 목록</a></li>
-        <li><a href="{% url 'game:create' %}">게임 등록</a></li>
+        <li><a href="{% url 'game:create' %}" id="game_create" >게임 등록</a></li>
         {# <li><a href="{% url game:mypage' %}">마이페이지</a></li> #}
         </ul>
 
         <ul class="nav-list">
             {% if not user.is_authenticated %}
             <li>
-                <a href="{% url 'account:login' %}">로그인</a>
+              <a href="{% url 'account:signup' %} ">회원 가입</a>
             </li>
             <li>
-              <a href="{% url 'account:signup' %} ">회원 가입</a>
+                <a href="{% url 'account:login' %}">로그인</a>
             </li>
             {% else %}
             <li><a href="{% url 'page:mypage' pk=user.pk%}"><span>마이페이지</span></a></li>
@@ -49,6 +49,13 @@
         if(event.key === 'Enter'){
             searchPost();
         }
+    });
+
+    document.getElementById('game_create').addEventListener('click',function(event){
+        {% if not user.is_authenticated %}
+            alert("로그인을 해주세요");
+            this.href = "{% url 'account:login' %}";
+        {% endif %}
     });
 </script>
 

@@ -55,10 +55,9 @@
           <a href="{% url 'game:detail' pk=game.pk %}">
             <li>
               {% if game.image %}
-                <img style="width:100%; border-radius:1rem; margin:2rem 0;"
-                     src="{{ game.image.url }}" alt="">
+                <img src="{{ game.image.url }}" alt="">
               {% else %}
-                    <img src="{% static 'img/title.png' %}" alt="">
+                <img src="{% static 'img/title.png' %}" alt="">
               {% endif %}
               <div class="list-info">
                 <div class="list-title">
@@ -70,11 +69,11 @@
                 <ul class="game-info">
                   <li>
                     <span>인원</span>
-                    <p>{{game.min_num_ppl}}명~{{game.max_num_ppl}}명</p>
+                    <p>{{game.min_num_ppl}}명-{{game.max_num_ppl}}명</p>
                   </li>
                   <li>
                     <span>시간</span>
-                    <p>{{ game.min_time }}분~{{ game.max_time }}분</p>
+                    <p>{{ game.min_time }}분-{{ game.max_time }}분</p>
                   </li>
                   <li>
                     <span>상황</span>
@@ -90,8 +89,8 @@
           </a>
             {% endfor %}
             {% else %}
-                <div class="text-center">
-                  <h1>Nothing...</h1>
+                <div class="list-info">
+                  <h3>검색 결과가 없습니다</h3>
                 </div>
             {% endif %}
 
@@ -102,8 +101,9 @@
 
 
   </div>
-<script>
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // 페이지 업로드 시 옵션 선택 조정
         {% if situation %}
         document.getElementById("group1").querySelector('button[value="전체"]').classList.remove("selected");
         var situation_button = document.getElementById("group1").querySelector('button[value="{{ situation }}"]');
@@ -130,80 +130,82 @@
         {% endif %}
     });
 
-      // 옵션 선택 시 실행될 함수
-      var groups = document.querySelectorAll(".select-options");
-      for (var i = 0; i < groups.length; i++) {
-        groups[i].addEventListener("click", function (event) {
-          var options = this.querySelectorAll(".option");
-          for (var j = 0; j < options.length; j++) {
-            options[j].classList.toggle("selected", false);
+
+
+    // 검색 버튼 클릭 시 실행될 함수
+    document.getElementById("game-search").addEventListener("click", function () {
+        var selected = document.querySelectorAll(".selected");
+        if (selected.length > 0) {
+          var selected_value = Array.from(selected).map(
+            (option) => option.value
+          );
+
+        selectedOptions = ["situation_str", "place_str", "game_type_str", "sort"];
+
+        // 여기에 추가: 폼을 동적으로 생성하여 Django로 데이터 전송
+        var form = document.createElement("form");
+        form.action = "{% url 'game:search_filter' %}";
+        form.method = "get";
+
+        var csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "csrfmiddlewaretoken";
+        csrfInput.value = "{{ csrf_token }}"; // Django 템플릿 태그를 사용하여 토큰을 가져옴
+        form.appendChild(csrfInput);
+
+        for (var i = 0; i < selected_value.length; i++) {
+          var input = document.createElement("input");
+          if (selected_value[i] != "전체"){
+            input.type = "hidden";
+            input.name = selectedOptions[i];
+            input.value = selected_value[i];
+            form.appendChild(input);
           }
-          if (event.target.classList.contains("option")) {
-            event.target.classList.toggle("selected", true);
-          }
-        });
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+      } else {
+        alert("옵션을 선택해주세요");
       }
+    });
 
-      // 검색 버튼 클릭 시 실행될 함수
-      document.getElementById("game-search").addEventListener("click", function () {
-          var selected = document.querySelectorAll(".selected");
-          if (selected.length > 0) {
-            var selected_value = Array.from(selected).map(
-              (option) => option.value
-            );
-
-            selectedOptions = ["situation_str", "place_str", "game_type_str", "sort"];
-
-            // 여기에 추가: 폼을 동적으로 생성하여 Django로 데이터 전송
-            var form = document.createElement("form");
-            form.action = "{% url 'game:search_filter' %}"; // Django URL 설정에 따라 변경
-            form.method = "get";
-
-            var csrfInput = document.createElement("input");
-            csrfInput.type = "hidden";
-            csrfInput.name = "csrfmiddlewaretoken";
-            csrfInput.value = "{{ csrf_token }}"; // Django 템플릿 태그를 사용하여 토큰을 가져옴
-            form.appendChild(csrfInput);
-
-            for (var i = 0; i < selected_value.length; i++) {
-              var input = document.createElement("input");
-              if (selected_value[i] != "전체"){
-                input.type = "hidden";
-                input.name = selectedOptions[i];
-                input.value = selected_value[i];
-                form.appendChild(input);
-              }
-            }
-
-            document.body.appendChild(form);
-            form.submit();
-          } else {
-            alert("옵션을 선택해주세요");
-          }
-        });
-
-      // 초기화 버튼 클릭 시 실행될 함수
-      document.getElementById("reset").addEventListener("click", function () {
-        // 모든 선택한 옵션들 초기화
-        var options = document.querySelectorAll(".option");
+    // 옵션 선택 시 실행될 함수
+    var groups = document.querySelectorAll(".select-options");
+    for (var i = 0; i < groups.length; i++) {
+      groups[i].addEventListener("click", function (event) {
+        var options = this.querySelectorAll(".option");
         for (var j = 0; j < options.length; j++) {
           options[j].classList.toggle("selected", false);
         }
-        var allOptions = document.querySelectorAll(
-          '.select-options button[value="전체"]'
-        );
-        var latestOption = document.querySelector(
-          '.select-options button[value="recent"]'
-        );
-
-        for (var k = 0; k < allOptions.length; k++) {
-          allOptions[k].classList.toggle("selected", true);
+        if (event.target.classList.contains("option")) {
+          event.target.classList.toggle("selected", true);
         }
-
-        // 최신순 버튼을 선택
-        latestOption.classList.toggle("selected", true);
       });
-    </script>
+    }
+
+    // 초기화 버튼 클릭 시 실행될 함수
+    document.getElementById("reset").addEventListener("click", function () {
+      // 모든 선택한 옵션들 초기화
+      var options = document.querySelectorAll(".option");
+      for (var j = 0; j < options.length; j++) {
+        options[j].classList.toggle("selected", false);
+      }
+      var allOptions = document.querySelectorAll(
+        '.select-options button[value="전체"]'
+      );
+      var latestOption = document.querySelector(
+        '.select-options button[value="recent"]'
+      );
+
+      for (var k = 0; k < allOptions.length; k++) {
+        allOptions[k].classList.toggle("selected", true);
+      }
+
+      // 최신순 버튼을 선택
+      latestOption.classList.toggle("selected", true);
+    });
+  </script>
 
 
 

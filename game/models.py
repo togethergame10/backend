@@ -26,7 +26,7 @@ class Game(models.Model):
     created_at = models.DateField(auto_now_add=True)
     #modified_at = models.DateTimeField(auto_now=True)
 
-    min_num_ppl = models.IntegerField( null=True)
+    min_num_ppl = models.IntegerField(null=True)
     max_num_ppl = models.IntegerField(null=True)
     min_time = models.CharField(max_length=30, null=True)
     max_time = models.CharField(max_length=30, null=True)

@@ -159,6 +159,13 @@ nav {
   object-fit: contain;
 }
 
+.post-buttons img {
+  width: 25px;
+  height: 20px;
+  padding-right: 8px;
+  object-fit: contain;
+}
+
 .post-buttons button,
 .buttons button {
   width: 15%;
@@ -196,7 +203,7 @@ nav {
 
 .game-info li p {
   margin: 0;
-  font-size: 1.5vw;
+  font-size: 1.2vw;
 }
 
 .playlist-button {

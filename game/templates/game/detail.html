@@ -68,12 +68,14 @@
             <h3>진행 팁</h3>
             <p>{{target_game.tip}}</p>
           </div>
+          {% if user.is_authenticated and user == target_game.author %}
           <div class="post-buttons">
             <button onclick="updatePost()"><img src="{% static 'img/fix.png' %}" alt="수정"/>수정</button>
             <button class="delete-button" onclick="deletePost()">
               <img src="{% static 'img/trash.png' %}" alt="삭제" />삭제
             </button>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -86,18 +88,22 @@
         <div class="modal-title">PlayList 선택</div>
         <ul>
           {% if user.is_authenticated %}
-            {% for gameplaylist in gameplaylists %}
-            <li>
-              <span id="playlist1">{{gameplaylist.title}}</span>
-              <button class="collect-button" data-game-id="{{ target_game.pk }}" data-gameplaylist-id ="{{ gameplaylist.pk }}"
-               data-collected ={% if not gameplaylist in checked_gameplaylists %}
-                                "선택"
-                                {% else %}
-                                "취소"
-                                {% endif %} ></button>
-            </li>
+            {% if gmaeplaylists %}
+              {% for gameplaylist in gameplaylists %}
+              <li>
+                <span id="playlist1">{{gameplaylist.title}}</span>
+                <button class="collect-button" data-game-id="{{ target_game.pk }}" data-gameplaylist-id ="{{ gameplaylist.pk }}"
+                 data-collected ={% if not gameplaylist in checked_gameplaylists %}
+                                  "선택"
+                                  {% else %}
+                                  "취소"
+                                  {% endif %} ></button>
+              </li>
 
-            {% endfor %}
+              {% endfor %}
+            {% else %}
+            <p style="text-align:center;">플레이리스트가 없습니다</p>
+            {% endif %}
           {% else %}
             <p>로그인해주세요</p>
           {% endif %}
@@ -175,8 +181,12 @@
 
   // 담기 버튼 클릭 시
   function openModal() {
+    {% if not user.is_authenticated %}
+    alert("로그인을 해주세요");
+    {% else %}
     var modal = document.getElementById("myModal");
     modal.style.display = "flex"; // 모달 표시
+    {% endif %}
   }
 
   function closeModal() {
