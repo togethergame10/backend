@@ -34,7 +34,7 @@ def deleteGameplaylist(request, pk):
         gameplaylist = GamePlaylist.objects.get(pk=pk)
         if request.user == gameplaylist.author:
             gameplaylist.delete()
-        return redirect('page:mypage', pk=request.user.pk)
+        return redirect('gameplaylist:list')
 
 ## 게임플리 목록
 class GamePlaylistListView(ListView, FormMixin):
@@ -56,7 +56,7 @@ class GamePlaylistListView(ListView, FormMixin):
         return reverse('page:mypage', kwargs={'pk':self.request.user.pk})
 
     def get_queryset(self):
-        return GamePlaylist.objects.filter(collectors=self.request.user)
+        return self.request.user.collected_gamelist.all()
 
 ## 게임플리 상세
 class GamePlaylistDetailView(DetailView):
@@ -67,6 +67,8 @@ class GamePlaylistDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(GamePlaylistDetailView, self).get_context_data()
         context['games'] = self.object.games.all()
+        context['collected'] = True if self.request.user in self.object.collectors.all() else False
+
         return context
 
 ## 게임플리에 게임 추가/삭제
@@ -91,8 +93,21 @@ def removeGame(request, pk1, pk2):
         gamelist = get_object_or_404(GamePlaylist, pk=pk1)
         game = get_object_or_404(Game, pk=pk2)
 
+
         if game in gamelist.games.all():
             gamelist.games.remove(game)
     return redirect('gameplaylist:detail', pk=pk1)
 
-## 담은 게임에서 게임 플리 삭제
+
+## 담은 게임에 게임 플리 추가/삭제
+def collectGamePlaylist(request, pk):
+    user = request.user
+    if user.is_authenticated:
+        gameplaylist = get_object_or_404(GamePlaylist, pk=pk)
+
+        if user in gameplaylist.collectors.all():
+            gameplaylist.collectors.remove(user)
+        else:
+            gameplaylist.collectors.add(user)
+
+    return redirect('gameplaylist:detail', pk=pk)

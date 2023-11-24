@@ -91,15 +91,46 @@ nav {
 }
 
 .save-game-title {
-  width: 20%;
+  margin-top: 2%;
+  width: 25%;
 }
 
-.save-game-element {
+.save-game-title-wrapper {
+  padding: 0 15%;
+  width: 70%;
   display: flex;
-  width: 80%;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.save-game-title-wrapper span {
+  font-size: larger;
+}
+
+.create-playlist {
+  padding: 5% 15%;
+  width: 70%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.create-playlist button {
+  width: 80%;
+  background-color: rgba(187, 215, 184, 1);
+  border: none;
+  border-radius: 15px;
+  height: 35px;
+  cursor: pointer;
+}
+.save-game-element {
+  margin-top: 2%;
+  display: flex;
+  width: 75%;
+}
+
 .save-game-element ul {
   padding: 0;
+  margin: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -107,18 +138,175 @@ nav {
   align-items: center;
 }
 
-.save-game-element li {
+.save-game-element a {
   width: 90%;
+  text-decoration: none;
+  color: black;
+}
+
+.save-game-element li {
+  width: 100%;
   display: flex;
   margin-bottom: 2%;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.save-game-element li img {
+  width: 20vw;
+  height: 11vw;
+  object-fit: cover;
+}
+
+.save-game-info {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 5%;
+}
+
+.save-game-buttons {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+}
+
+.save-game-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.save-game-buttons img {
+  width: 25px !important;
+  height: 25px !important;
+  object-fit: contain !important;
+}
+
+/* Add this to your existing CSS or create a new CSS file */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: rgba(251, 249, 245, 1);
+  padding: 20px;
+  border-radius: 15px;
+  position: absolute;
+  top: 50%;
+  width: 23%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-elements {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-elements form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.modal-elements form input {
+  margin-bottom: 7%;
+}
+
+.modal-elements form button {
+  width: 30%;
+  margin-left: 70%;
+  height: 30px;
+  border-radius: 15px;
+  background-color: rgba(251, 217, 150, 1);
+  border: none;
+}
+
+#playlistName {
+  background: none;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+label,
+.span-text {
+  background-color: rgba(242, 201, 196, 1);
+  width: 40%;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  margin-bottom: 7%;
+}
+
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  z-index: 1;
+  left: 90%;
+  top: 2%;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.filebox {
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.save-game-element li img {
-  width: 40%;
+.filebox .upload-name {
+  display: inline-block;
+  height: 30px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: none;
+  border-radius: 15px;
+  width: 50%;
+  background-color: rgba(244, 240, 235, 1);
 }
 
-.save-game-info {
-  width: 60%;
+.filebox label,
+#cancelFile {
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  color: #fff;
+  vertical-align: middle;
+  border: none;
+  background-color: #999999;
+  cursor: pointer;
+  height: 30px;
+  width: 20%;
+  height: 30px;
+  align-items: center;
+  margin-left: 10px;
+  font-size: small;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 }

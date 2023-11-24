@@ -1,27 +1,19 @@
 {% load static %}
     <a href="{% url 'game:detail' pk=game.pk%}">
         <li>
-            <span class="rank">
-                {% if forloop.counter == 1 %}
-              <img src="{% static 'img/crown.png' %}" alt="" />
-                {% endif %}
-              {{ forloop.counter }}
-            </span>
             {% if game.image %}
-                <img src="{{ game.image.url }}" alt="게임사진" class="thumbnail">
+            <img src="{{ game.image.url }}" width="100px" height="100px" alt="">
             {% else %}
-                <img src="{% static 'img/thumbnail.png' %}" alt="thumbnail" class="thumbnail">
+            <img src="{% static 'img/title.png' %}" alt="">
             {% endif %}
-
             <div class="list-info">
                 <div class="list-title">
-
-                    <span>{{game.title | truncatechars:45 }}</span>
-
-                    <div class="heart">
-                        <img src="{% static 'img/likefull.png' %}" alt="" />
-                        <span>{{game.likes.count }}</span>
-                    </div>
+                    <span>{{ game.title | truncatechars:45 }}</span>
+                    {% if user.is_authenticated and user == target_gameplaylist.author %}
+                    <button class="delete-button" onclick="deleteElement({{game.pk}})">
+                        <img src="{% static 'img/trash.png' %}" alt="제거" />
+                    </button>
+                    {% endif %}
                 </div>
                 <ul class="game-info">
                     <li>

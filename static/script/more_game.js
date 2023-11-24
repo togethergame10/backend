@@ -12,7 +12,6 @@ function toggleLike() {
 function deletePost() {
   if (confirm("게시글을 삭제하시겠습니까??") == true) {
     //확인
-    window.location.href = "{% url 'game:delete' pk=target_game.pk %}";
 
     document.removefrm.submit();
   } else {

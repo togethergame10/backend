@@ -17,9 +17,7 @@
   <div class="sec2">
     <ul>
       {% for game in liked_ranking %}
-      <a href="{% url 'game:detail' pk=game.pk%}">
         {% include 'snippets/ranking_game_part.html' with game=game %}
-      </a>
       {% endfor %}
     </ul>
   </div>
@@ -34,7 +32,7 @@
   <div class="sec2">
     <ul>
       {% for game in situation_ranking %}
-        {% include 'snippets/game_part.html' with game=game %}
+        {% include 'snippets/ranking_game_part.html' with game=game %}
       {% endfor %}
     </ul>
   </div>

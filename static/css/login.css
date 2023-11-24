@@ -137,12 +137,12 @@ nav {
   border: none;
 }
 
-.login input[type="text"]::placeholder,
+.login input[type="email"]::placeholder,
 .login input[type="password"]::placeholder {
   color: rgba(150, 150, 150, 1);
 }
 
-.login input[type="text"],
+.login input[type="email"],
 .login input[type="password"] {
     height: 10px;
     margin: 5px 0; /* 입력 필드 간의 간격을 조절합니다. */

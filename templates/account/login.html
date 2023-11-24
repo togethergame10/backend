@@ -20,7 +20,7 @@
             {% include "form_errors.html" %}
             <div>
                 <label for="email"></label>
-                <input type="text" name="username" id="email"
+                <input type="email" name="username" id="email"
                        value="{{ form.email.value|default_if_none:'' }}" placeholder="이메일">
             </div>
             <div>

@@ -16,31 +16,12 @@
       <div class="like-game">
         <div class="like-game-title">
           <img src="{% static 'img/blacklike.png' %}" alt="" />
-            <a href="{% url 'account:like_more' pk=user.pk%}"><span>좋아요 한 게임</span></a>
+            <a href="{% url 'account:like_more' pk=user.pk%}"><span>좋아요한 게임</span></a>
             <span>{{ like_count }}</span>
         </div>
         <ul>
         {% for game in liked_list %}
-          <a href="{% url 'game:detail' pk=game.pk%}">
-              <li>
-                  {% if game.image %}
-                      <img src="{{ game.image.url }}" width="100px" height="100px" alt="">
-                  {% else %}
-                      <img src="{% static 'img/thumbnail.png' %}" alt="">
-                  {% endif %}
-
-                  <div class="like-game-element">
-                      <div class="about-game">
-                          <h4>{{game.title | truncatechars:45 }}</h4>
-                          <p>{{ game.created_at | date:'Y.m.d' }}</p>
-                      </div>
-                      <div class="likes">
-                          <img src="{% static 'img/likefull.png' %}" alt="하트이미지" />
-                          <span>{{ game.likes.count }}</span>
-                      </div>
-                  </div>
-              </li>
-          </a>
+          {% include 'snippets/mypage_game_part.html' %}
         {% endfor %}
         </ul>
       </div>
@@ -52,12 +33,27 @@
           <span>{{ collect_count }}</span>
         </div>
         <ul>
-          {% for gamelist in collected_list %}
+            {% for game in collected_list %}
+                <a href="{% url 'gameplaylist:detail' pk=game.pk%}">
+                    <li>
+                        {% if game.image %}
+                        <img src="{{ game.image.url }}" width="100px" height="100px" alt="">
+                        {% else %}
+                        <img src="{% static 'img/thumbnail.png' %}" alt="">
+                        {% endif %}
 
-          {% endfor %}
+                        <div class="like-game-element">
+                            <div class="about-game">
+                                <h4>{{game.title | truncatechars:45 }}</h4>
+                                <p>{{ game.created_at | date:'Y.m.d' }}</p>
+                            </div>
+
+                        </div>
+                    </li>
+                </a>
+            {% endfor %}
         </ul>
       </div>
-
     </div>
   </div>
 {% endblock %}

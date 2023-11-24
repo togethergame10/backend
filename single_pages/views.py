@@ -53,9 +53,12 @@ def myPage(request, pk):
     user = User.objects.get(pk=pk)
     liked_list = Game.objects.filter(likes__in=user.like.all())
     like_count = liked_list.count
+    liked_list = liked_list[::-1]
     liked_list = liked_list[:2]
-    collected_list = user.collected_gamelist.all()[:2]
+    collected_list = user.collected_gamelist.all()
     collect_count = user.collected_gamelist.count
+    collected_list = collected_list[::-1]
+    collected_list = collected_list[:2]
 
     return render(request, 'single_pages/mypage.html', {
         'target_user':user,

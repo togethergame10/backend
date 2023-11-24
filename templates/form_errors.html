@@ -5,15 +5,15 @@
     <!-- 필드 오류 -->
         {% if field.errors %}
         <div>
-            <p>{{ field.label }}</p>
-            <p>{{ field.errors }}</p>
+            <h6>{{ field.label }}</h6>
+            <h6>{{ field.errors }}</h6>
         </div>
         {% endif %}
     {% endfor %}
     <!-- 넌필드 오류 -->
     {% for error in form.non_field_errors %}
     <div>
-        <p>넌필드오류: {{ error }}</p>
+        <h6>{{ error }}</h6>
     </div>
     {% endfor %}
 </div>

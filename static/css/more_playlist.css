@@ -84,33 +84,65 @@ nav {
   font-weight: 900;
 }
 
-h2 {
-  margin-bottom: 0;
-}
-
-/* ------------------------ */
-
 .container {
+  width: 100%;
   display: flex;
-  margin:auto;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  width: 62vw;
 }
 
-.sec1 p{
-  font-size: x-large;
-  margin-bottom: 0%;
-  margin-top: 0;
-  font-weight: 600;
-  margin: 0;
+.sec1 {
+  width: 32%;
+  padding: 0 1.5%;
+}
+
+.playlist-info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.playlist-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.playlist-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.playlist-buttons button img {
+  width: 25px;
+  object-fit: contain;
+}
+
+.playlist-thumbnail img {
+  width: 25vw;
+  height: 14vw;
+  object-fit: cover;
+}
+
+.sec2 {
+  width: 65%;
+  padding-top: 8%;
 }
 
 .sec2 ul {
-  padding: 0;
+  padding: 0%;
 }
 
+.sec2 ul a {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+}
 .sec2 ul li {
+  list-style: none;
   display: flex;
   margin: 1.5%;
   justify-content: center;
@@ -121,45 +153,19 @@ h2 {
   width: 60%;
 }
 
-.rank {
-  font-size: 2vw;
-  padding-top: 1vh;
-  display:flex;
-  flex-direction: column;
-  text-align: center;
-  width: 2vw;
-}
-
-.rank img {
-  min-width: 1.7vw;
-  max-width: 1.7vw;
-  /* height:min-content; */
-  padding-left: 0.2vw !important;
-}
-
 .list-info span {
-  font-size: 1.3vw;
+  font-size: 1vw;
 }
-
-.heart {
-  color: rgba(232, 82, 82, 1);
-}
-
-.sec2 ul a {
-  text-decoration: none;
-  cursor: pointer;
-  color: black;
-}
-
-.thumbnail {
-  width: 18.75vw;
-  height: 10.25vw;
-  padding-left: 1vw;
+.sec2 ul li img {
+  width: 16vw;
+  height: 9vw;
   object-fit: cover;
 }
 
 .sec2 ul li div img {
-  width: 20px;
+  width: 20px !important;
+  height: 18px;
+  object-fit: contain;
 }
 
 .list-title {
@@ -168,13 +174,15 @@ h2 {
 }
 
 .game-info {
+  padding: 0;
   display: flex;
   flex-direction: row;
-  padding: 0;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-info li {
-  width: 7vw;
+  width: 5.5vw;
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
   display: flex;
   flex-direction: column;
@@ -183,10 +191,19 @@ h2 {
   justify-content: center;
   align-items: center;
   border-radius: 50%; /* Adjusted border-radius for circles */
-  height: 7vw !important; /* Set your desired height */
+  height: 5vw !important; /* Set your desired height */
 }
 
 .game-info li p {
   margin: 0;
-  font-size: 1.5vw;
+  font-size: 1.2vw;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
