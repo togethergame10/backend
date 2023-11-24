@@ -1,6 +1,6 @@
 from django.db.models import Q, Count
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
@@ -66,12 +66,27 @@ class GameUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('game:detail', kwargs={'pk': self.object.pk})
 
-# 게임 삭제
-class GameDeleteView(DeleteView):
-    model = Game
-    context_object_name = 'target_game'
-    success_url = reverse_lazy('game:list')
-    template_name = 'game/delete.html'
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(GameUpdateView, self).get_context_data()
+        game = Game.objects.get(pk=self.kwargs['pk'])
+        context['place'] = game.place.name
+        context['situation'] = game.situation.name
+        context['game_type'] = game.game_type.all()[0].name
+        return context
+
+# # 게임 삭제
+# class GameDeleteView(DeleteView):
+#     model = Game
+#     context_object_name = 'target_game'
+#     success_url = reverse_lazy('game:list')
+#     template_name = 'game/delete.html'
+
+def deleteGame(request, pk):
+    if request.user.is_authenticated:
+        game = Game.objects.get(pk=pk)
+        if request.user == game.author:
+            game.delete()
+        return redirect('game:list')
 
 # 게임 목록
 class GameListView(ListView):

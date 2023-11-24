@@ -1,9 +1,6 @@
 from django.urls import path
 
-from game.views import GameCreateView, GameUpdateView, GameDetailView, GameDeleteView, GameListView, GameSearchView, \
-    update_like
 
-from game.views import GameSearchFilter
 from gameplaylist.views import GamePlaylistCreateView, deleteGameplaylist, GamePlaylistListView, GamePlaylistDetailView, \
     addOrRemoveGame, removeGame
 

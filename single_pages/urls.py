@@ -1,9 +1,5 @@
 from django.urls import path
 
-from game.views import GameCreateView, GameUpdateView, GameDetailView, GameDeleteView, GameListView, GameSearchView, \
-    update_like
-
-from game.views import GameSearchFilter
 from single_pages.views import mainPage, LikedRankingPage, SituationRankingPage, myPage
 
 app_name='page'

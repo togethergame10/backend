@@ -20,36 +20,48 @@
               <div class="select-buttons">
                 <form id="form1">
                   <div class="select-options" id="group1">
-                    <span>최소</span>
-                    <input type="text" name="min_num_ppl">
-                    <span>최대</span>
-                    <input type="text" name="max_num_ppl">
+                    <div class="option-wrapper">
+                      <span>최소</span>
+                      <input type="text"  name="min_num_ppl" required/>
+                      <span>명</span>
+                    </div>
+                    <div class="option-wrapper">
+                      <span>최대</span>
+                      <input type="text" name="max_num_ppl"/>
+                      <span>명</span>
+                    </div>
                   </div>
 
                   <div class="select-options" id="group2">
-                    <span>최소</span>
-                    <input type="text" name="min_time">
-                    <span>최대</span>
-                    <input type="text" name="max_time">
+                    <div class="option-wrapper">
+                      <span>최소</span>
+                      <input type="text" name="min_time" />
+                      <span>분</span>
+                    </div>
+                    <div class="option-wrapper">
+                      <span>최대</span>
+                      <input type="text"  name="max_time" />
+                      <span>분</span>
+                    </div>
                   </div>
                 </form>
 
                 <div class="select-options" id="group3">
-                  <button class="option" value="전체">전체</button>
+                  <button class="option selected" value="전체">전체</button>
                   <button class="option" value="MT">MT</button>
-                  <button class="option" value="내기">내기</button>
+                  <button class="option" value="술게임">술게임</button>
                   <button class="option" value="기타">기타</button>
                 </div>
 
                 <div class="select-options" id="group4">
-                  <button class="option" value="전체">전체</button>
+                  <button class="option selected" value="전체">전체</button>
                   <button class="option" value="실내">실내</button>
                   <button class="option" value="야외">야외</button>
                   <button class="option" value="온라인">온라인</button>
                 </div>
 
                 <div class="select-options" id="group5">
-                  <button class="option" value="전체">전체</button>
+                  <button class="option selected" value="전체">전체</button>
                   <button class="option" value="퀴즈">퀴즈</button>
                   <button class="option" value="순발력">순발력</button>
                   <button class="option" value="두뇌게임">두뇌게임</button>
@@ -66,13 +78,18 @@
               <span>게임명</span>
               <input type="text" name="title" />
               <span>진행준비</span>
-              <textarea name="preparation" id="" cols="30" rows="3"></textarea>
+              <textarea name="preparation" id="" cols="30" rows="2"></textarea>
               <span>게임 방법</span>
-              <textarea name="explanation" id="" cols="30" rows="4"></textarea>
+              <textarea name="explanation" id="" cols="30" rows="3"></textarea>
               <span>진행 팁 / 주의사항</span>
               <textarea name="tip" id="" cols="30" rows="5"></textarea>
-              <span> 이미지</span>
-              <input type="file" id="image" name="image">
+              <span>썸네일 이미지</span>
+              <div class="filebox">
+                <input class="upload-name" value="첨부파일" placeholder="첨부파일"/>
+                <label for="file">파일찾기</label>
+                <input type="file" id="file" name="image"/>
+                <button type="button" id="cancelFile">첨부 취소</button>
+              </div>
               <input type="hidden" id="situation" name="situation_str">
               <input type="hidden" id="place" name="place_str">
               <input type="hidden" id="game_type" name="game_type_str">
@@ -84,62 +101,12 @@
           </div>
       </div>
 
-
-    <script>
-      // 옵션 선택 시 실행될 함수
-      var groups = document.querySelectorAll(".select-options");
-      for (var i = 0; i < groups.length; i++) {
-        groups[i].addEventListener("click", function (event) {
-          var options = this.querySelectorAll(".option");
-          for (var j = 0; j < options.length; j++) {
-            options[j].classList.toggle("selected", false);
-          }
-          if (event.target.classList.contains("option")) {
-            event.target.classList.toggle("selected", true);
-          }
-        });
-      }
-
-      document.getElementById("gameForm").addEventListener("submit", function (event) {
-        var form1 = document.getElementById('form1');
-        var form2 = document.getElementById('gameForm');
-        // form1의 모든 입력 요소를 가져와서 form2에 추가
-        for (var i = 0; i < form1.elements.length; i++) {
-            var element = form1.elements[i];
-            if (element.type === 'text') {
-                var clone = element.cloneNode(true);
-                clone.type = "hidden";
-                form2.appendChild(clone);
-            }
-        }
-
-        input_situation = document.getElementById('situation');
-        input_situation.value = document.querySelector("#group3 .option.selected").value;
-        input_place = document.getElementById('place');
-        input_place.value = document.querySelector("#group4 .option.selected").value;
-        input_game_type = document.getElementById('game_type');
-        input_game_type.value = document.querySelector("#group5 .option.selected").value;
-
-        if (form2.checkValidity()) {
-            form2.submit();
-        } else {
-            alert("에러 발생");
-            event.preventDefault();
-        }
-
-      });
-
-
-
-    </script>
+    <script src="{% static 'script/add_game.js'%}?after"></script>
 
     {% else %}
-    <a href="{%url 'account:login'%}">
-        <p>로그인을 해주세요</p>
-    </a>
-
-
-
+      <a href="{%url 'account:login'%}">
+          <p>로그인을 해주세요</p>
+      </a>
     {% endif %}
 
 {% endblock %}
