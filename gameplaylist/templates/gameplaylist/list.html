@@ -28,8 +28,7 @@
                 <a href="{% url 'gameplaylist:detail' pk=gameplaylist.pk %}">
                 <li>
                         {% if gameplaylist.image %}
-                        <img style="width:100%; border-radius:1rem; margin:2rem 0;"
-                             src="{{gameplaylist.image.url }}" alt="">
+                        <img src="{{gameplaylist.image.url }}" alt="">
                         {% else %}
                         <img src="{% static 'img/thumbnail.png' %}" alt="썸네일">
                         {% endif %}
