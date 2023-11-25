@@ -17,30 +17,17 @@
 
       <!-- 게임 div -->
       <ul class="img_list">
-        {% for game in liked_list %}
-          <a href="{% url 'game:detail' pk=game.pk%}">
-              <li>
-                  {% if game.image %}
-                      <img src="{{ game.image.url }}" width="100px" height="100px" alt="">
-                  {% else %}
-                      <img src="{% static 'img/thumbnail.png' %}" alt="">
-                  {% endif %}
-
-                  <div>
-                      <h4>{{game.title | truncatechars:45 }}</h4>
-                      <img src="{% static 'img/graylike.png' %}" class="like-icon" />
-                  </div>
-                  <h6>{{game.created_at |date:'Y.m.d'}}</h6>
-              </li>
-          </a>
+        {% for game in liked_list1 %}
+          {% include 'snippets/like_more_game_part.html' %}
         {% endfor %}
       </ul>
     </div>
 
 <div class="img_wrapper">
     <ul class="img_list">
-
+        {% for game in liked_list2 %}
+          {% include 'snippets/like_more_game_part.html' %}
+        {% endfor %}
     </ul>
-
 </div>
 {% endblock %}

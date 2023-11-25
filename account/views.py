@@ -35,10 +35,14 @@ def LikeMoreView(request,pk):
     user = User.objects.get(pk=pk)
     liked_list = Game.objects.filter(likes__in=user.like.all())
     like_count = liked_list.count
+    liked_list1=liked_list[:4]
+    liked_list2 = liked_list[4:8]
 
     return render(request, 'account/like_more.html', {
         'target_user': user,
         'liked_list': liked_list,
         'like_count': like_count,
+        'liked_list1': liked_list1,
+        'liked_list2': liked_list2,
     })
 
