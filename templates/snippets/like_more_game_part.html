@@ -7,11 +7,14 @@
                   {% else %}
                       <img src="{% static 'img/thumbnail.png' %}" alt="">
                   {% endif %}
+                       </a>
 
                   <div>
-                      <h4>{{game.title | truncatechars:45 }}</h4>
+
+                      <h4>
+                          <a href="{% url 'game:detail' pk=game.pk%}">{{game.title | truncatechars:45 }}</a>
+                      </h4>
                       <img src="{% static 'img/graylike.png' %}" class="like-icon" />
                   </div>
                   <h6>{{game.created_at |date:'Y.m.d'}}</h6>
-                   </a>
               </li>
