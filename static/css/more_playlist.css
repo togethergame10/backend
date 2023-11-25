@@ -1,0 +1,347 @@
+@media (hover: hover) {
+  html {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+html {
+  background-color: rgba(251, 249, 246, 1);
+}
+
+* {
+  font-family: "IBM Plex Sans KR";
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1vh 5vh 0 5vh;
+}
+
+.nav-wrapper a img {
+  width: 10vh;
+}
+
+.search {
+  width: 35%;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.search input {
+  width: calc(
+    100% - 40px
+  ); /* Adjusted width to accommodate the button and image */
+  background-color: rgba(251, 249, 246, 1);
+  border: 2px solid #bbb;
+  border-radius: 20px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.search button {
+  position: absolute;
+  right: 20px; /* Adjusted right position */
+  width: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.search img {
+  width: 20px;
+}
+
+nav {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}
+.nav-list {
+  list-style-type: none;
+  padding: 0%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-list a {
+  text-decoration: none;
+}
+
+.nav-list a {
+  padding: 0 20px 0 20px;
+  font-weight: 700;
+  color: gray;
+}
+
+.bold a {
+  color: black;
+  font-weight: 900;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.sec1 {
+  width: 32%;
+  padding: 0 1.5%;
+}
+
+.playlist-info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.playlist-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.playlist-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.playlist-buttons button img {
+  width: 25px;
+  object-fit: contain;
+}
+
+.playlist-thumbnail img {
+  width: 25vw;
+  height: 14vw;
+  object-fit: cover;
+}
+
+#addButton{
+  margin-top: 10px;
+  margin-left: 60%;
+  width: 40%;
+  background-color: rgba(251, 217, 150, 1);
+  border: none;
+  border-radius: 15px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.sec2 {
+  width: 65%;
+  padding-top: 8%;
+}
+
+.sec2 ul {
+  padding: 0%;
+}
+
+.sec2 ul a {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+}
+.sec2 ul li {
+  list-style: none;
+  display: flex;
+  margin: 1.5%;
+  justify-content: center;
+}
+
+.list-info {
+  margin-left: 3%;
+  width: 60%;
+}
+
+.list-info span {
+  font-size: 1vw;
+}
+.sec2 ul li img {
+  width: 16vw;
+  height: 9vw;
+  object-fit: cover;
+}
+
+.sec2 ul li div img {
+  width: 20px !important;
+  height: 18px;
+  object-fit: contain;
+}
+
+.list-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-info {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-info li {
+  width: 5.5vw;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  display: flex;
+  flex-direction: column;
+  border: 2px solid grey;
+  color: gray;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%; /* Adjusted border-radius for circles */
+  height: 5vw !important; /* Set your desired height */
+}
+
+.game-info li p {
+  margin: 0;
+  font-size: 1.2vw;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: rgba(251, 249, 245, 1);
+  padding: 20px;
+  border-radius: 15px;
+  position: absolute;
+  top: 50%;
+  width: 23%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-elements {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-elements form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.modal-elements form input {
+  margin-bottom: 7%;
+}
+
+.modal-elements form button {
+  width: 30%;
+  margin-left: 70%;
+  height: 30px;
+  border-radius: 15px;
+  background-color: rgba(251, 217, 150, 1);
+  border: none;
+}
+
+#playlistName {
+  background: none;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+label,
+.span-text {
+  background-color: rgba(242, 201, 196, 1);
+  width: 40%;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  margin-bottom: 7%;
+}
+
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  z-index: 1;
+  left: 90%;
+  top: 2%;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.filebox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.filebox .upload-name {
+  display: inline-block;
+  height: 30px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: none;
+  border-radius: 15px;
+  width: 50%;
+  background-color: rgba(244, 240, 235, 1);
+}
+
+.filebox label,
+#cancelFile {
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  color: #fff;
+  vertical-align: middle;
+  border: none;
+  background-color: #999999;
+  cursor: pointer;
+  height: 30px;
+  width: 20%;
+  height: 30px;
+  align-items: center;
+  margin-left: 10px;
+  font-size: small;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}

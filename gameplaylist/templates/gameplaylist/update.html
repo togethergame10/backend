@@ -1,0 +1,47 @@
+<!-- Button trigger modal -->
+
+          {% if user.is_authenticated %}
+            {% for gameplaylist in gameplaylists %}
+            <p>
+                <span> {{gameplaylist.title}} </span>
+                <button class="collect-button" data-game-id="{{ game.pk }}" data-gameplaylist-id ="{{ gameplaylist.pk }}">
+                    {% if not gameplaylist in checked_gameplaylists %}
+                    선택
+                    {% else %}
+                    취소
+                    {% endif%}
+                </button>
+            </p>
+            {% endfor %}
+          {% else %}
+            <p>로그인해주세요</p>
+          {% endif %}
+
+            <script>
+            $(document).ready(function() {
+              $(".collect-button").on("click", function() {
+                var button = $(this);  // 클릭된 버튼을 변수에 저장
+                var game_id = button.data("game-id");
+                var gameplaylist_id = button.data("gameplaylist-id");
+                $.ajax({
+                  type: "POST",
+                  url: "{% url 'gameplaylist:add_or_remove_game' %}",
+                  dataType: 'json',
+                  data: {
+                    'game_id': game_id,
+                    'gameplaylist_id': gameplaylist_id,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                  },
+                  success: function(response) {
+                      var buttonText = response.collected ? "취소" : "선택";
+                      ////
+                      button.text(buttonText);
+                  },
+                  error: function(xhr, status, error) {
+                      console.error(xhr.responseText);
+                      alert("오류가 발생했습니다.");
+                  }
+                });
+              });
+            });
+          </script>

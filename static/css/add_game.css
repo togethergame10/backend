@@ -1,0 +1,266 @@
+@media (hover: hover) {
+  html {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+html {
+  background-color: rgba(251, 249, 246, 1);
+}
+
+* {
+  font-family: "IBM Plex Sans KR";
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1vh 5vh 0 5vh;
+}
+
+.nav-wrapper a img {
+  width: 10vh;
+}
+
+.search {
+  width: 35%;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.search input {
+  width: calc(
+    100% - 40px
+  ); /* Adjusted width to accommodate the button and image */
+  background-color: rgba(251, 249, 246, 1);
+  border: 2px solid #bbb;
+  border-radius: 20px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.search button {
+  position: absolute;
+  right: 20px; /* Adjusted right position */
+  width: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.search img {
+  width: 20px;
+}
+
+nav {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}
+.nav-list {
+  list-style-type: none;
+  padding: 0%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-list a {
+  text-decoration: none;
+}
+
+.nav-list a {
+  padding: 0 20px 0 20px;
+  font-weight: 700;
+  color: gray;
+}
+
+.bold a {
+  color: black;
+  font-weight: 900;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.background {
+  background-color: rgba(187, 215, 184, 1);
+  width: 80%;
+  padding: 7% 0 6% 0;
+  margin-top: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.select-name {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.select-name span {
+  margin-bottom: 10px;
+}
+
+.select-buttons input {
+  width: 50%;
+  border-radius: 15px;
+  margin: 0 5%;
+  border: none;
+  background: rgba(251, 249, 246, 1);
+  height: 18px;
+  padding: 7px;
+}
+
+.option-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.sec1 {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+h2 {
+  width: 25%;
+  padding-right: 55%;
+  margin-bottom: 0;
+}
+
+.select-options {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5% 0 0;
+  margin-bottom: 10px;
+}
+
+.option {
+  background-color: rgba(251, 249, 246, 1);
+  border: none;
+  border-radius: 20px;
+  padding: 8px;
+  width: 23%;
+  height: 30px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.option.selected {
+  background-color: rgba(242, 201, 196, 1);
+  color: black;
+}
+
+.sec2 {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sec2 form {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sec2 form span {
+  margin: 5px 0 5px 0;
+}
+
+.sec2 form input {
+  border: none;
+  background: none;
+  border-bottom: 1px solid rgba(161, 161, 161, 1);
+}
+
+.sec2 form textarea {
+  resize: none;
+  border: none;
+  background-color: rgba(244, 240, 235, 1);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.buttons {
+  margin-top: 15px;
+  padding-left: 60%;
+}
+
+.buttons input {
+  border: none;
+  width: 48%;
+  height: 35px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+input:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+  border: none;
+}
+
+#submit {
+  background-color: rgba(242, 201, 196, 1);
+}
+
+.filebox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.filebox .upload-name {
+  display: inline-block;
+  height: 30px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: none;
+  border-radius: 15px;
+  width: 50%;
+  background-color: rgba(244, 240, 235, 1);
+}
+
+.filebox label,
+#cancelFile {
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  color: #fff;
+  vertical-align: middle;
+  border: none;
+  background-color: #999999;
+  cursor: pointer;
+  height: 30px;
+  width: 20%;
+  height: 30px;
+  align-items: center;
+  margin-left: 10px;
+  font-size: small;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}

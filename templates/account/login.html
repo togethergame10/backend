@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}?after" />
+{% endblock %}
+
+{% block content %}
+<div class="login_wrapper">
+    <div class = "img_ad">
+    <a href="#"><img src ="{% static 'img/thumbnail.png' %}"></a>
+    </div>
+
+    <div class="login">
+        <p>게임 뭐 할지 고민될 때는?</p>
+        <img src="{% static 'img/title.png' %}">
+
+        <form method="post" action="" id="login-form">
+            {% csrf_token %}
+            {% include "form_errors.html" %}
+            <div>
+                <label for="email"></label>
+                <input type="email" name="username" id="email"
+                       value="{{ form.email.value|default_if_none:'' }}" placeholder="이메일">
+            </div>
+            <div>
+                <label for="password"></label>
+                <input type="password" class="form-control" name="password" id="password"
+                       value="{{ form.password.value|default_if_none:'' }}" placeholder="비밀번호">
+            </div>
+            <input type="submit" value="로그인" >
+        </form>
+
+        <div class="info_search">
+            <p><a href="#">아이디 찾기</a></p>
+            <hr>
+            <p><a href="#">비밀번호 찾기</a></p>
+            <hr>
+            <p><a href="add_user.html">회원 가입</a></p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+  function login() {
+      var id = document.getElementById("username");
+      var password = document.getElementById("password");
+
+      if (id.value == "") {
+          alert("아이디를 입력해주세요.");
+          return false;
+      }
+      if (password.value == "") {
+          alert("비밀번호를 입력해주세요.");
+          return false;
+      }
+
+      //로그인 처리 코드
+
+      // 로그인 처리 이후
+      return true;
+  }
+</script>
+
+{% endblock %}

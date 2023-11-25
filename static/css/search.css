@@ -1,0 +1,258 @@
+@media (hover: hover) {
+  html {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+html {
+  background-color: rgba(251, 249, 246, 1);
+}
+
+* {
+  font-family: "IBM Plex Sans KR";
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1vh 5vh 0 5vh;
+}
+
+.nav-wrapper a img {
+  width: 10vh;
+}
+
+.search {
+  width: 35%;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.search input {
+  width: calc(
+    100% - 40px
+  ); /* Adjusted width to accommodate the button and image */
+  background-color: rgba(251, 249, 246, 1);
+  border: 2px solid #bbb;
+  border-radius: 20px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.search button {
+  position: absolute;
+  right: 20px; /* Adjusted right position */
+  width: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.search img {
+  width: 20px;
+}
+
+nav {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}
+.nav-list {
+  list-style-type: none;
+  padding: 0%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-list a {
+  text-decoration: none;
+}
+
+.nav-list a {
+  padding: 0 20px 0 20px;
+  font-weight: 700;
+  color: gray;
+}
+
+.bold a {
+  color: black;
+  font-weight: 900;
+}
+
+h2 {
+  margin-bottom: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.background {
+  background-color: rgba(187, 215, 184, 1);
+  width: 100%;
+  padding: 4% 1% 3% 1%;
+  margin-top: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.select-name {
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 3% 0 5%;
+}
+
+.select-buttons {
+  width: 70%;
+  padding: 0 5% 0 2%;
+}
+
+.sec1 {
+  width: 40%;
+}
+
+.select-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.option {
+  background-color: rgba(251, 249, 246, 1);
+  border: none;
+  border-radius: 20px;
+  padding: 8px;
+  width: 23%;
+  height: 30px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.option.selected {
+  background-color: rgba(242, 201, 196, 1);
+  color: black;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  height: 30px;
+  align-items: center;
+  padding-top: 10px;
+  padding-right: 5px;
+}
+
+#game-search,
+#reset {
+  background-color: rgba(225, 231, 219, 1);
+  color: black;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  width: 18%;
+  height: 30px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+#reset {
+  background-color: rgba(251, 217, 150, 1);
+}
+
+.sec2 {
+  width: 60%;
+  max-height: 550px;
+  overflow-y: auto;
+}
+
+.sec2 ul {
+  padding: 0%;
+}
+
+.sec2 ul a {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+}
+.sec2 ul li {
+  list-style: none;
+  display: flex;
+  margin: 1.5%;
+  justify-content: center;
+}
+
+.list-info {
+  margin-left: 3%;
+  width: 60%;
+}
+
+.list-info span {
+  font-size: 1vw;
+}
+.sec2 ul li img {
+  width: 14vw;
+  height: 7.5vw;
+  object-fit: cover;
+}
+
+.sec2 ul li div img {
+  width: 20px !important;
+  height: 18px;
+  object-fit: contain;
+}
+
+.list-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-info {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-info li {
+  width: 5.5vw;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  display: flex;
+  flex-direction: column;
+  border: 2px solid grey;
+  color: gray;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%; /* Adjusted border-radius for circles */
+  height: 5vw !important; /* Set your desired height */
+}
+
+.game-info li p {
+  margin: 0;
+  font-size: 1.1vw;
+}
+
+.heart span {
+  color: red;
+}

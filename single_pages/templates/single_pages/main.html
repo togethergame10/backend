@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}?after" />
+{% endblock %}
+
+
+
+{% block content %}
+
+    <div class="img_wrapper" >
+        <p>최근 인기</p>
+        <h3><a href="{% url 'page:likedRanking' %}" role="button">최근 인기 게임 > </a></h3>
+        <ul class="img_list">
+            {% for game in liked_ranking %}
+                {% include 'snippets/game_part.html' with game=game %}
+            {% endfor %}
+        </ul>
+    </div>
+
+<div class="img_wrapper" >
+    <p>상황 별 게임</p>
+    <h3><a href="{% url 'page:situationRanking' pk=0 %}">술자리 게임 > </a></h3>
+    <ul class="img_list">
+        {% for game in situation_ranking1 %}
+            {% include 'snippets/game_part.html' with game=game %}
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="img_wrapper" >
+    <h3><a href="{% url 'page:situationRanking' pk=1 %}">MT > </a></h3>
+    <ul class="img_list">
+        {% for game in situation_ranking2 %}
+        {% include 'snippets/game_part.html' with game=game %}
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

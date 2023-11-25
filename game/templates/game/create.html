@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/add_game.css' %}?after" />
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+      <div class="container">
+          <div class="sec1">
+            <h2>게임 특징</h2>
+            <div class="background">
+              <div class="select-name">
+                <span>참여 인원</span>
+                <span>소요 시간</span>
+                <span>상황</span>
+                <span>장소</span>
+                <span>장르</span>
+              </div>
+              <div class="select-buttons">
+                <form id="form1">
+                  <div class="select-options" id="group1">
+                    <div class="option-wrapper">
+                      <span>최소</span>
+                      <input type="text"  name="min_num_ppl" required/>
+                      <span>명</span>
+                    </div>
+                    <div class="option-wrapper">
+                      <span>최대</span>
+                      <input type="text" name="max_num_ppl"/>
+                      <span>명</span>
+                    </div>
+                  </div>
+
+                  <div class="select-options" id="group2">
+                    <div class="option-wrapper">
+                      <span>최소</span>
+                      <input type="text" name="min_time" />
+                      <span>분</span>
+                    </div>
+                    <div class="option-wrapper">
+                      <span>최대</span>
+                      <input type="text"  name="max_time" />
+                      <span>분</span>
+                    </div>
+                  </div>
+                </form>
+
+                <div class="select-options" id="group3">
+                  <button class="option selected" value="전체">전체</button>
+                  <button class="option" value="MT">MT</button>
+                  <button class="option" value="술게임">술게임</button>
+                  <button class="option" value="기타">기타</button>
+                </div>
+
+                <div class="select-options" id="group4">
+                  <button class="option selected" value="전체">전체</button>
+                  <button class="option" value="실내">실내</button>
+                  <button class="option" value="야외">야외</button>
+                  <button class="option" value="온라인">온라인</button>
+                </div>
+
+                <div class="select-options" id="group5">
+                  <button class="option selected" value="전체">전체</button>
+                  <button class="option" value="퀴즈">퀴즈</button>
+                  <button class="option" value="순발력">순발력</button>
+                  <button class="option" value="두뇌게임">두뇌게임</button>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="sec2">
+            <h2>게임 소개</h2>
+            <form id="gameForm" action="{% url 'game:create' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <span>게임명</span>
+              <input type="text" name="title" />
+              <span>진행준비</span>
+              <textarea name="preparation" id="" cols="30" rows="2"></textarea>
+              <span>게임 방법</span>
+              <textarea name="explanation" id="" cols="30" rows="3"></textarea>
+              <span>진행 팁 / 주의사항</span>
+              <textarea name="tip" id="" cols="30" rows="5"></textarea>
+              <span>썸네일 이미지</span>
+              <div class="filebox">
+                <input class="upload-name" value="첨부파일" placeholder="첨부파일"/>
+                <label for="file">파일찾기</label>
+                <input type="file" id="file" name="image"/>
+                <button type="button" id="cancelFile">첨부 취소</button>
+              </div>
+              <input type="hidden" id="situation" name="situation_str">
+              <input type="hidden" id="place" name="place_str">
+              <input type="hidden" id="game_type" name="game_type_str">
+              <div class="buttons">
+                <input type="reset" value="취소하기!" id="cancel" />
+                <input type="submit" value="등록하기!" id="submit" />
+              </div>
+            </form>
+          </div>
+      </div>
+
+    <script src="{% static 'script/add_game.js'%}?after"></script>
+
+    {% else %}
+      <a href="{%url 'account:login'%}">
+          <p>로그인을 해주세요</p>
+      </a>
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+

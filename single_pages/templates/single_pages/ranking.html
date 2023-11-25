@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/main_alcohol.css' %}?after" />
+{% endblock %}
+{% load static %}
+
+{% block content %}
+
+  <!-- 최근 인기 게임 div -->
+{% if liked_ranking %}
+<div class="container">
+  <div class="sec1">
+    <p>{{ title }}</p>
+  </div>
+  <div class="sec2">
+    <ul>
+      {% for game in liked_ranking %}
+        {% include 'snippets/ranking_game_part.html' with game=game %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+    {% endif %}
+
+{% if situation_ranking %}
+<div class="container">
+  <div class="sec1">
+    <p>{{ situation }}</p>
+  </div>
+  <div class="sec2">
+    <ul>
+      {% for game in situation_ranking %}
+        {% include 'snippets/ranking_game_part.html' with game=game %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+    {% endif %}
+
+
+
+<script>
+  // JavaScript 코드
+document.addEventListener("DOMContentLoaded", function() {
+  const likeIcons = document.querySelectorAll(".like-icon");
+
+  likeIcons.forEach(icon => {
+    icon.addEventListener("click", function() {
+      // 이미지를 토글하여 표시하거나 숨김
+      icon.classList.toggle("active");
+
+      // 토글된 상태에 따라 다른 이미지 표시
+      if (icon.classList.contains("active")) {
+        icon.src = "{% static 'img/likefull.png' %}";
+      } else {
+        icon.src = "{% static 'img/like.png' %}";
+      }
+    });
+  });
+});
+</script>
+
+{% endblock %}

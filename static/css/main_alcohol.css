@@ -1,0 +1,192 @@
+@media (hover: hover) {
+  html {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+html {
+  background-color: rgba(251, 249, 246, 1);
+}
+
+* {
+  font-family: "IBM Plex Sans KR";
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1vh 5vh 0 5vh;
+}
+
+.nav-wrapper a img {
+  width: 10vh;
+}
+
+.search {
+  width: 35%;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.search input {
+  width: calc(
+    100% - 40px
+  ); /* Adjusted width to accommodate the button and image */
+  background-color: rgba(251, 249, 246, 1);
+  border: 2px solid #bbb;
+  border-radius: 20px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.search button {
+  position: absolute;
+  right: 20px; /* Adjusted right position */
+  width: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.search img {
+  width: 20px;
+}
+
+nav {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}
+.nav-list {
+  list-style-type: none;
+  padding: 0%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-list a {
+  text-decoration: none;
+}
+
+.nav-list a {
+  padding: 0 20px 0 20px;
+  font-weight: 700;
+  color: gray;
+}
+
+.bold a {
+  color: black;
+  font-weight: 900;
+}
+
+h2 {
+  margin-bottom: 0;
+}
+
+/* ------------------------ */
+
+.container {
+  display: flex;
+  margin:auto;
+  flex-direction: column;
+  justify-content: center;
+  width: 62vw;
+}
+
+.sec1 p{
+  font-size: x-large;
+  margin-bottom: 0%;
+  margin-top: 0;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sec2 ul {
+  padding: 0;
+}
+
+.sec2 ul li {
+  display: flex;
+  margin: 1.5%;
+  justify-content: center;
+}
+
+.list-info {
+  margin-left: 3%;
+  width: 60%;
+}
+
+.rank {
+  font-size: 2vw;
+  padding-top: 1vh;
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  width: 2vw;
+}
+
+.rank img {
+  min-width: 1.7vw;
+  max-width: 1.7vw;
+  /* height:min-content; */
+  padding-left: 0.2vw !important;
+}
+
+.list-info span {
+  font-size: 1.3vw;
+}
+
+.heart {
+  color: rgba(232, 82, 82, 1);
+}
+
+.sec2 ul a {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+}
+
+.thumbnail {
+  width: 18.75vw;
+  height: 10.25vw;
+  padding-left: 1vw;
+  object-fit: cover;
+}
+
+.sec2 ul li div img {
+  width: 20px;
+}
+
+.list-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+}
+
+.game-info li {
+  width: 7vw;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  display: flex;
+  flex-direction: column;
+  border: 2px solid grey;
+  color: gray;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%; /* Adjusted border-radius for circles */
+  height: 7vw !important; /* Set your desired height */
+}
+
+.game-info li p {
+  margin: 0;
+  font-size: 1.5vw;
+}

@@ -1,0 +1,182 @@
+@media (hover: hover) {
+  html {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+html {
+  background-color: rgba(251, 249, 246, 1);
+}
+
+* {
+  font-family: "IBM Plex Sans KR";
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1vh 5vh 0 5vh;
+}
+
+.nav-wrapper a img {
+  width: 10vh;
+}
+
+.search {
+  width: 35%;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.search input {
+  width: calc(
+    100% - 40px
+  ); /* Adjusted width to accommodate the button and image */
+  background-color: rgba(251, 249, 246, 1);
+  border: 2px solid #bbb;
+  border-radius: 20px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.search button {
+  position: absolute;
+  right: 20px; /* Adjusted right position */
+  width: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.search img {
+  width: 20px;
+}
+
+nav {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}
+.nav-list {
+  list-style-type: none;
+  padding: 0%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-list a {
+  text-decoration: none;
+}
+
+.nav-list a {
+  padding: 0 20px 0 20px;
+  font-weight: 700;
+  color: gray;
+}
+
+
+.login_wrapper {
+  display:flex;
+  justify-content: flex-start;
+  width: 100%
+}
+
+.img_ad {
+    width: 48vw;
+    float: left;
+    box-sizing: border-box;
+    margin:auto;
+}
+
+.img_ad img {
+  width: 55vw;
+  height:30vw;
+  max-width: 97%;
+  padding-top: 15px;
+  padding-left: 15px;
+  object-fit: cover;
+}
+
+.login {
+  width: 32vw;
+  float: right;
+  box-sizing: border-box;
+  display: block;
+  text-align: center;
+  margin: auto;
+}
+
+.login p {
+  color:rgba(0, 0, 0, 0.7);
+  font-size:large;
+}
+
+.login img:first-of-type{
+  width: 10vh;
+}
+
+.login input[type=submit]{
+  background-color: rgba(109, 183, 177, 1);
+  color:#fff;
+  border: none;
+  box-sizing:content-box;
+  width: 20vw;
+  border-radius: 10px;
+  padding: 13px 15px;
+  margin-top: 5px;
+  
+  }
+
+.login input:focus{
+  outline: none;
+  border: none;
+}
+
+.login input[type="email"]::placeholder,
+.login input[type="password"]::placeholder {
+  color: rgba(150, 150, 150, 1);
+}
+
+.login input[type="email"],
+.login input[type="password"] {
+    height: 10px;
+    margin: 5px 0; /* 입력 필드 간의 간격을 조절합니다. */
+    background-color: rgba(244, 240, 235, 1);
+    border: none;
+    padding:17px;
+    border-radius: 10px;
+    width: 20vw;
+    box-sizing: content-box;
+}
+
+.info_search {
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+  width: 14vw;
+  padding:0 9vw;
+  margin-top: 0%;
+}
+
+.info_search p{
+  margin: 5px;
+  color: rgba(151, 149, 147, 1);
+}
+
+.info_search a {
+  margin: 0;
+  color: inherit;
+  font-size: x-small;
+
+}
+
+.info_search a:hover,
+.info_search a:active {
+  color: inherit;
+}
+
