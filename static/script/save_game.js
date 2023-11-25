@@ -61,7 +61,7 @@ function copyLink(button) {
 
     // Create a temporary input element to copy the text
     var tempInput = document.createElement("input");
-    tempInput.value = href;
+    tempInput.value = "http://127.0.0.1:8000" + href;
 
     // Append the input element to the body
     document.body.appendChild(tempInput);

@@ -88,7 +88,7 @@
         <div class="modal-title">PlayList 선택</div>
         <ul>
           {% if user.is_authenticated %}
-            {% if gmaeplaylists %}
+            {% if gameplaylists %}
               {% for gameplaylist in gameplaylists %}
               <li>
                 <span id="playlist1">{{gameplaylist.title}}</span>

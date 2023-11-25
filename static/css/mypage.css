@@ -141,13 +141,17 @@ nav {
   flex-direction: row;
 }
 
+
 .save-game ul li img,
 .like-game ul li img {
-  width: 95%;
+  width: 18vw;
+  height: 10vw;
+  object-fit: cover;
 }
 
 .save-game ul a,
 .like-game ul a {
+  margin-right: 2%;
   text-decoration: none;
   cursor: pointer;
   color: black;
@@ -188,6 +192,8 @@ nav {
 
 .likes img {
   width: 25px !important;
+  height: 25px !important;
+  object-fit: contain !important;
   padding-right: 5px;
 }
 
