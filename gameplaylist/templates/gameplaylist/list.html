@@ -28,8 +28,7 @@
                 <a href="{% url 'gameplaylist:detail' pk=gameplaylist.pk %}">
                 <li>
                         {% if gameplaylist.image %}
-                        <img style="width:100%; border-radius:1rem; margin:2rem 0;"
-                             src="{{gameplaylist.image.url }}" alt="">
+                        <img src="{{gameplaylist.image.url }}" alt="">
                         {% else %}
                         <img src="{% static 'img/thumbnail.png' %}" alt="썸네일">
                         {% endif %}
@@ -66,7 +65,15 @@
           <h2>새 PlayList 생성</h2>
             <form action="{% url 'gameplaylist:create' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form }}
+                <label for="playlistName">Playlist 제목</label>
+                  {{form.title}}
+                <span class="span-text">썸네일 이미지</span>
+                  <div class="filebox">
+                    <input class="upload-name" value="첨부파일" placeholder="첨부파일"/>
+                    <button type="button" id="cancelFile">첨부 취소</button>
+                    <label for="file">파일 찾기</label>
+                    <input type="file" id="file" name="image" />
+                </div>
                 <button type="submit">만들기</button>
             </form>
         </div>

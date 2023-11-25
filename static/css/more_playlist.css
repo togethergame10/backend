@@ -127,6 +127,17 @@ nav {
   object-fit: cover;
 }
 
+#addButton{
+  margin-top: 10px;
+  margin-left: 60%;
+  width: 40%;
+  background-color: rgba(251, 217, 150, 1);
+  border: none;
+  border-radius: 15px;
+  height: 35px;
+  cursor: pointer;
+}
+
 .sec2 {
   width: 65%;
   padding-top: 8%;
@@ -206,4 +217,131 @@ nav {
   width: 30px;
   height: 30px;
   object-fit: contain;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: rgba(251, 249, 245, 1);
+  padding: 20px;
+  border-radius: 15px;
+  position: absolute;
+  top: 50%;
+  width: 23%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-elements {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-elements form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.modal-elements form input {
+  margin-bottom: 7%;
+}
+
+.modal-elements form button {
+  width: 30%;
+  margin-left: 70%;
+  height: 30px;
+  border-radius: 15px;
+  background-color: rgba(251, 217, 150, 1);
+  border: none;
+}
+
+#playlistName {
+  background: none;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+label,
+.span-text {
+  background-color: rgba(242, 201, 196, 1);
+  width: 40%;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  margin-bottom: 7%;
+}
+
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  z-index: 1;
+  left: 90%;
+  top: 2%;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.filebox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.filebox .upload-name {
+  display: inline-block;
+  height: 30px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: none;
+  border-radius: 15px;
+  width: 50%;
+  background-color: rgba(244, 240, 235, 1);
+}
+
+.filebox label,
+#cancelFile {
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  color: #fff;
+  vertical-align: middle;
+  border: none;
+  background-color: #999999;
+  cursor: pointer;
+  height: 30px;
+  width: 20%;
+  height: 30px;
+  align-items: center;
+  margin-left: 10px;
+  font-size: small;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 }

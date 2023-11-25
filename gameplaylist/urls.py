@@ -2,13 +2,13 @@ from django.urls import path
 
 
 from gameplaylist.views import GamePlaylistCreateView, deleteGameplaylist, GamePlaylistListView, GamePlaylistDetailView, \
-    addOrRemoveGame, removeGame, collectGamePlaylist
+    addOrRemoveGame, removeGame, collectGamePlaylist, GamePlaylistUpdateView
 
 app_name='gameplaylist'
 
 urlpatterns = [
     path('create/', GamePlaylistCreateView.as_view(), name='create'),
-    # path('update/<int:pk>/', GameUpdateView.as_view(), name='update'),
+    path('update/<int:pk>/', GamePlaylistUpdateView.as_view(), name='update'),
     path('detail/<int:pk>/', GamePlaylistDetailView.as_view(), name='detail'),
     path('detail/<int:pk>/delete/', deleteGameplaylist, name='delete'),
     path('list/delete/<int:pk>/', deleteGameplaylist, name='delete'),

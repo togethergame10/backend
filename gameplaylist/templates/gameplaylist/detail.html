@@ -22,25 +22,30 @@
                 <button onclick="deletePlaylist( {{target_gameplaylist.pk}} )">
                     <img src="{% static 'img/trash.png' %}" alt="제거" />
                 </button>
+              <div class="create-playlist">
+                  <button>
+                    <img src="{% static 'img/fix.png' %}" alt="수정">
+                  </button>
+                </div>
                {% endif %}
-              {% if user.is_authenticated and user != target_gameplaylist.author %}
-                <button onclick="collectPlaylist(
-                    {% if collected %} '플레이리스트를 담은 게임에서 삭제하겠습니까?'
-                    {% else %} '플레이리스트를 담으시겠습니까?'
-                    {% endif %} )">
-                    {% if collected %} 삭제 {% else %} 담기 {% endif %}
-                </button>
-               {% endif %}
+
+
           </div>
         </div>
         <div class="playlist-thumbnail">
             {% if target_gameplaylist.image %}
-            <img style="width:100%; border-radius=1rem; margin:2rem 0;"
-             src="{{target_gameplaylist.image.url }}" alt="">
+            <img src="{{target_gameplaylist.image.url }}" alt="">
             {% else %}
             <img src="{% static 'img/thumbnail.png' %}" alt="..">
             {% endif %}
         </div>
+
+        {% if user.is_authenticated and user != target_gameplaylist.author %}
+            <button id="addButton" onclick="collectPlaylist( {{ collected|yesno:'true,false' }} )">
+                {{ collected|yesno:'추가됨! (재클릭 시 취소),내 Playlist에 추가하기' }}
+            </button>
+        {% endif %}
+
     </div>
 
         <div class="sec2">
@@ -54,6 +59,28 @@
 <!--            <h3 style="text-align:center;">아직 담은 게임이 없습니다</h3>-->
             {% endif %}
         </div>
+    </div>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-elements">
+          <h2>PlayList 수정</h2>
+          <form id="playlistForm" action="{% url 'gameplaylist:update' pk=target_gameplaylist.pk %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+            <label for="playlistName">Playlist 제목</label>
+              {{form.title}}
+            <span class="span-text">썸네일 이미지</span>
+              <div class="filebox">
+                <input class="upload-name" value="첨부파일" placeholder="첨부파일"/>
+                <button type="button" id="cancelFile">첨부 취소</button>
+                <label for="file">파일 찾기</label>
+                <input type="file" id="file" name="image" />
+            </div>
+            <button type="submit">수정 완료</button>
+          </form>
+        </div>
+      </div>
     </div>
 
 {% endblock %}

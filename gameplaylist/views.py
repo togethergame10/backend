@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 # Create your views here.
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, UpdateView
 
 from game.models import Game
 from gameplaylist.forms import GamePlaylistCreationForm
@@ -59,17 +59,43 @@ class GamePlaylistListView(ListView, FormMixin):
         return self.request.user.collected_gamelist.all()
 
 ## 게임플리 상세
-class GamePlaylistDetailView(DetailView):
+class GamePlaylistDetailView(DetailView, FormMixin):
     model = GamePlaylist
     context_object_name = 'target_gameplaylist'
     template_name = 'gameplaylist/detail.html'
+
+    form_class = GamePlaylistCreationForm
 
     def get_context_data(self, **kwargs):
         context = super(GamePlaylistDetailView, self).get_context_data()
         context['games'] = self.object.games.all()
         context['collected'] = True if self.request.user in self.object.collectors.all() else False
-
         return context
+
+    def form_valid(self, form):
+        temp_gameplaylist = form.save(commit=False)
+        temp_gameplaylist.author = self.request.user
+        form.save(commit=True)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('gameplaylist:detail', kwargs={'pk':self.object.pk})
+
+## 게임 플리 수정
+class GamePlaylistUpdateView(UpdateView):
+    model = GamePlaylist
+    context_object_name = 'target_gameplaylist'
+    form_class = GamePlaylistCreationForm
+
+    def form_valid(self, form):
+        temp_gameplaylist = form.save(commit=False)
+        temp_gameplaylist.author = self.request.user
+        form.save(commit=True)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('gameplaylist:detail', kwargs={'pk':self.object.pk})
+
 
 ## 게임플리에 게임 추가/삭제
 def addOrRemoveGame(request):
