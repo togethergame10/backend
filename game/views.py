@@ -93,7 +93,6 @@ class GameListView(ListView):
     model = Game
     context_object_name = 'game_list'
     template_name = 'game/list.html'
-    paginate_by = 10
     ordering = '-pk'
 
 # 게임 제목 검색
