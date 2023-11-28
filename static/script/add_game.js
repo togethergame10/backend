@@ -1,87 +1,48 @@
 // 옵션 선택 시 실행될 함수
 var groups = document.querySelectorAll(".select-options");
 for (var i = 0; i < groups.length; i++) {
-  groups[i].addEventListener("click", function (event) {
-    var options = this.querySelectorAll(".option");
-    for (var j = 0; j < options.length; j++) {
-      options[j].classList.toggle("selected", false);
-    }
-    if (event.target.classList.contains("option")) {
-      event.target.classList.toggle("selected", true);
-    }
-  });
+    groups[i].addEventListener("click", function (event) {
+      var options = this.querySelectorAll(".option");
+      for (var j = 0; j < options.length; j++) {
+        options[j].classList.toggle("selected", false);
+      }
+      if (event.target.classList.contains("option")) {
+        event.target.classList.toggle("selected", true);
+      }
+    });
 }
 
-document
-  .getElementById("gameForm")
-  .addEventListener("submit", function (event) {
-    // 선택된 옵션 값 수집
-    var selectedGroup1Min = document
-      .getElementById("group1")
-      .querySelector("input[type='text']").value;
-    var selectedGroup1Max = document
-      .getElementById("group1")
-      .querySelectorAll("input[type='text']")[1].value;
+// 폼 제출 시
+document.getElementById("gameForm").addEventListener("submit", function (event) {
+    var form1 = document.getElementById('form1');
+    var form2 = document.getElementById('gameForm');
 
-    var selectedGroup2Min = document
-      .getElementById("group2")
-      .querySelector("input[type='text']").value;
-    var selectedGroup2Max = document
-      .getElementById("group2")
-      .querySelectorAll("input[type='text']")[1].value;
-
-    var selectedGroup3 = document.querySelector(
-      "#group3 .option.selected"
-    ).value;
-
-    var selectedGroup4 = document.querySelector(
-      "#group4 .option.selected"
-    ).value;
-
-    var selectedGroup5 = document.querySelector(
-      "#group5 .option.selected"
-    ).value;
-
-    var selectedGroup6 = document.querySelector(
-      "#group6 .option.selected"
-    ).value;
-
-    // 폼 데이터에 추가
-    var formData = new FormData(document.getElementById("gameForm"));
-    formData.append("selectedGroup1Min", selectedGroup1Min);
-    formData.append("selectedGroup1Max", selectedGroup1Max);
-
-    formData.append("selectedGroup2Min", selectedGroup2Min);
-    formData.append("selectedGroup2Max", selectedGroup2Max);
-
-    formData.append("selectedGroup3", selectedGroup3);
-    formData.append("selectedGroup4", selectedGroup4);
-    formData.append("selectedGroup5", selectedGroup5);
-    formData.append("selectedGroup6", selectedGroup6);
-
-    // 서버에 폼 데이터 전송
-    fetch("{% url 'your_form_submission_url' %}", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+    // form1의 모든 입력 요소를 가져와서 form2에 추가
+    for (var i = 0; i < form1.elements.length; i++) {
+        var element = form1.elements[i];
+        if (element.type === 'text') {
+            var clone = element.cloneNode(true);
+            clone.type = "hidden";
+            form2.appendChild(clone);
         }
-        return response.json();
-      })
-      .then((data) => {
-        // 서버 응답 처리
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("에러:", error);
-      });
+    }
 
-    // 기본 제출 동작 방지
-    event.preventDefault();
-  });
+    input_situation = document.getElementById('situation');
+    input_situation.value = document.querySelector("#group3 .option.selected").value;
+    input_place = document.getElementById('place');
+    input_place.value = document.querySelector("#group4 .option.selected").value;
+    input_game_type = document.getElementById('game_type');
+    input_game_type.value = document.querySelector("#group5 .option.selected").value;
 
+    if (form2.checkValidity()) {
+        form2.submit();
+    } else {
+        alert("에러 발생");
+        event.preventDefault();
+    }
+});
+
+// 파일 업로드 관련
 // Get the file input element
 var fileInput = document.getElementById("file");
 
